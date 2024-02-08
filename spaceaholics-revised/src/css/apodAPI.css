@@ -1,0 +1,15 @@
+
+
+img{
+  padding: .6rem;
+}
+
+@media(min-width:640px){
+  img {
+    height:400px !important
+  }
+
+  .space-APOD-content {
+    min-width: 350px
+}
+}

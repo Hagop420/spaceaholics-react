@@ -44,7 +44,7 @@ export function ApodImageAPI(){
   return(
       <>
           {/* Light and dark mode component rendering */}
-        <div className="flex m-3 justify-start">
+        <div className="flex container m-3 justify-start">
           <label className="swap swap-rotate">
             {/* this hidden checkbox controls the state */}
             <input

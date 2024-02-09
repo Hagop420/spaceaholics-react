@@ -1,18 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import Lightbox_library from "./Lightbox_library";
 import '../css/searchImageApi.css'
 import '../css/lightbox-min.css'
 import { FaSearch, FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
 
 
 
 
 export function SearchImageAPI(){
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi');
-
-
-const [star , setStar] = useState(false)
-
 
 
 
@@ -23,7 +19,7 @@ const [star , setStar] = useState(false)
       setTheme('lofi'); //light
     }
   }
-  const [inp , setInp] = useState<string>('')
+  const [inp , setInp] = useState<any>('')
 
   const [hrefImg , setHrefImg] = useState()
 
@@ -88,43 +84,26 @@ console.log(jsonConverted.collection)
         const apodImgCol = jsonConverted?.collection.items[randomNumber].links[0].href
 
 
-        // lightbox
-
-// // Create the <a> tag with the fetched image
-// const aTag = document.createElement('a');
-// aTag.href = apodImgCol;
-// aTag.setAttribute('data-lightbox', 'cases');
-
-// // Create the <img> tag and append it to the <a> tag
-// const imgTag = document.createElement('img');
-// imgTag.src = apodImgCol;
-// imgTag.alt = 'Fetched Image';
-// aTag.appendChild(imgTag);
-
-// // Append the <a> tag to the DOM
-// document.body.appendChild(aTag);
-
-
-
-        // lightbox end
 
         setHrefImg(apodImgCol)
+
 
           const dataCol = jsonConverted?.collection.items[randomNumber].data
 
           setDataApi(dataCol)
           console.log('dataApi' , dataCol[0].description)
 
+            return(
+              <img src={hrefImg} alt="" />
+            )
    }catch(err){
         console.log(err)
       }
     }
 
-    // Lightbox_library.start($('a[data-lightbox="cases"]'))
 
 
 
-    // star icon func
 
 
 
@@ -195,11 +174,13 @@ console.log(jsonConverted.collection)
 
 
 <div className="m-auto flex justify-center">
-    <a href={hrefImg} data-lightbox="cases" >
-      <img src={hrefImg} className="object-cover" alt="" />
-    </a>
 
 
+{hrefImg && (
+
+      <img src={hrefImg} className="zoomable" alt="" />
+
+)}
 
 
  <div className="hidden flex-col item-width sm:block sm:m-auto content-width">
@@ -211,16 +192,18 @@ console.log(jsonConverted.collection)
     <div className="flex flex-col items-center text-center sm:hidden">
 <h1 className="text-2xl">{dataApi[0]?.keywords[0]}</h1>
 
-  <p>{dataApi[0]?.description}</p>
+  <p>{dataApi[0]?.description_508}</p>
 
-    <div className="text-2xl">
-      {inp ? <FaStar /> : ''}
+    <div className="text-3xl">
+      {hrefImg ? <FaStar /> : ''}
     </div>
     </div>
 
 
-          <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-2xl">
-            {inp ? <FaStar /> : ''}
+          <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl">
+            <Link to = '/favorites'>
+                {hrefImg ? <FaStar /> : ''}
+              </Link>
           </div>
 
 

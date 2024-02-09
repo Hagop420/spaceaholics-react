@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FaSearch } from 'react-icons/fa';
 
 
@@ -8,7 +8,7 @@ export function SearchImageAPI(){
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi');
 
 
-
+const [star , setStar] = useState(false)
 
 
 
@@ -21,6 +21,11 @@ export function SearchImageAPI(){
     }
   }
   const [inp , setInp] = useState<string>('')
+
+  const [hrefImg , setHrefImg] = useState()
+
+
+  const [dataApi , setDataApi] = useState<any>([])
 
   const [inputApi , setInputApi] = useState<Response>()
 
@@ -57,7 +62,6 @@ export function SearchImageAPI(){
 
 
 
-  const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
 
 
@@ -70,12 +74,31 @@ export function SearchImageAPI(){
        const getApodCurrImg = await fetch(`https://images-api.nasa.gov/search?q=${inp}`)
        const jsonConverted = await getApodCurrImg.json()
         setInputApi(jsonConverted)
-        console.log(inputApi)
-      }catch(err){
+        console.log(jsonConverted?.collection)
+        // const rend = Math.random() * getApodCurrImg.collection
+        // console.log(rend)
+console.log(jsonConverted.collection)
+        const randomNumber =Math.floor( Math.random() * jsonConverted?.collection.items.length)
+
+
+        const numKeyword = Math.floor(Math.random() * 100 + 1);
+
+        const apodImgCol = jsonConverted?.collection.items[randomNumber].links[0].href
+        setHrefImg(apodImgCol)
+
+          const dataCol = jsonConverted?.collection.items[randomNumber].data
+
+          setDataApi(dataCol)
+          console.log('dataApi' , dataCol[0].description)
+
+   }catch(err){
         alert(err)
       }
     }
 
+
+
+    // star icon func
 
 
 
@@ -125,6 +148,16 @@ export function SearchImageAPI(){
             <FaSearch className="search-icon" color="black" />
     </button>
 </div>
+
+    <img src={hrefImg} alt="" />
+
+<h2>{dataApi[0]?.title}</h2>
+
+<h2>{dataApi[0]?.keywords[0]}</h2>
+
+
+{/* write a condition tern if the search was clicked  have a state if true star pops up  */}
+
 
 
       </>

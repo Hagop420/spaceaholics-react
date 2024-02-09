@@ -31,7 +31,6 @@ export function ApodImageAPI(){
       try{
          const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
         const data = await response.json();
-        console.log(data)
         setAPOD(data);
       }catch(err){
         alert(err)

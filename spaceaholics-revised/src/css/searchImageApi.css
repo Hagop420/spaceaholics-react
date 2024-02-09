@@ -1,0 +1,10 @@
+@media(min-width:640px){
+
+
+  .content-width {
+    min-width: 100px
+}
+  .item-width {
+    min-width: 600px
+}
+}

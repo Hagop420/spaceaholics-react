@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 
+body{overflow-x:hidden}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,6 +18,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+::placeholder{padding:.3rem}
 
 [data-theme='lofi'] body{
   color:#000 !important

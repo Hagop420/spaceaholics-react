@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { FaSearch } from 'react-icons/fa';
 
 
 
@@ -7,7 +8,6 @@ export function SearchImageAPI(){
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi');
 
 
-    const [inputValue, setInputValue] = useState<string>('');
 
 
 
@@ -20,8 +20,9 @@ export function SearchImageAPI(){
       setTheme('lofi'); //light
     }
   }
+  const [inp , setInp] = useState<string>('')
 
-  const [apod , setAPOD] = useState<Response>()
+  const [inputApi , setInputApi] = useState<Response>()
 
 
   // video pausing
@@ -50,24 +51,31 @@ export function SearchImageAPI(){
   }, []);
 
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInp(e.target.value);
+  };
 
+
+
+  const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
 
 
 
   // input search function
 
-   const handleInputChange = useCallback((e) => {
-        setInputValue(e.target.value);
-    }, []);
 
-  useEffect(() => {
-    async function handleInputChange(){
+     async function handleInputChange(){
       try{
-       const getApodCurrImg = await fetch(`https://images-api.nasa.gov/search?q=${inputValue}`)
+       const getApodCurrImg = await fetch(`https://images-api.nasa.gov/search?q=${inp}`)
+       const jsonConverted = await getApodCurrImg.json()
+        setInputApi(jsonConverted)
+        console.log(inputApi)
+      }catch(err){
+        alert(err)
       }
     }
-  })
+
 
 
 
@@ -96,7 +104,7 @@ export function SearchImageAPI(){
             ></iframe>
 
 
-   </section>
+</section>
 
 
 
@@ -104,11 +112,19 @@ export function SearchImageAPI(){
    {/* input function API component */}
 
 
+<div className="flex justify-center">
 
-    <input
+      <input
+      className="form-control rounded"
     type="text"
-    value={inputValue}
-    onChange={handleInputChange}  />
+    value={inp}
+            onChange={handleChange}
+      />
+
+    <button className="bg-amber-600 rounded p-2" onClick={handleInputChange}>
+            <FaSearch className="search-icon" color="black" />
+    </button>
+</div>
 
 
       </>

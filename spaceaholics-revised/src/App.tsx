@@ -13,7 +13,7 @@ function App() {
 
     <Routes>
       <Route index element={<HomePageWrap />} />
-      <Route path='/favorites' element={<FavoritePlanets />} />
+      <Route path='/favoritePlanets' element={<FavoritePlanets />} />
     </Routes>
 
   </>

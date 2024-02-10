@@ -195,13 +195,15 @@ console.log(jsonConverted.collection)
   <p>{dataApi[0]?.description_508}</p>
 
     <div className="text-3xl">
-      {hrefImg ? <FaStar /> : ''}
+      <Link to = '/favoritePlanets'>
+        {hrefImg ? <FaStar /> : ''}
+      </Link>
     </div>
     </div>
 
 
           <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl">
-            <Link to = '/favorites'>
+            <Link to = '/favoritePlanets'>
                 {hrefImg ? <FaStar /> : ''}
               </Link>
           </div>

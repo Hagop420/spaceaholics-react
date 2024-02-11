@@ -1,9 +1,3 @@
-
-
-
-export function FavoritePlanets(){
-
-return(
-  <h1>dsgjjg</h1>
-)
+export function FavoritePlanets() {
+  return <h1>dsgjjg</h1>
 }

@@ -8,6 +8,8 @@ export function SearchImageAPI() {
 
   const [hrefImg, setHrefImg] = useState<any>()
 
+  const [dataDes, setDataDes] = useState<any>()
+
   const [dataApi, setDataApi] = useState<any>([])
 
   const [inputApi, setInputApi] = useState<Response>()
@@ -52,19 +54,12 @@ export function SearchImageAPI() {
     nextEntryId: 1,
   }
 
+  localStorage.getItem('Planet_information')
+
   useEffect(() => {
-    const jsonPlanets = JSON.stringify(data)
-
-    let savedToStorage: any = localStorage.setItem(
-      'Planet_information',
-      jsonPlanets,
-    )
-  })
-
-  const planetStorageLocalStorageItems = {
-    planetImageURL: hrefImg,
-  }
-  data.nextEntryId++
+    const jsonStorage = JSON.stringify(data)
+    localStorage.setItem('Planet_information', jsonStorage)
+  }, [data])
 
   // LS end
 
@@ -99,6 +94,30 @@ export function SearchImageAPI() {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  function stored(e) {
+    // planets localStorage
+    // e.preventDefault()
+    // useEffect(() => {
+    const lsItemsPlanets = {
+      // planetId: data.nextEntryId,
+      planet_image_url: hrefImg,
+    }
+
+    // Set local storage
+    localStorage.setItem('Planet_information', JSON.stringify(data))
+    // localStorage.getItem('Planet_information')
+
+    // setPlanetStorage(lsItemsPlanets)
+
+    // Update data.entries
+    data.nextEntryId++
+    data.entries.push(lsItemsPlanets)
+
+    // }, [])
+
+    // LS end
   }
 
   return (
@@ -177,20 +196,14 @@ export function SearchImageAPI() {
         <p>{dataApi[0]?.description_508}</p>
 
         <div className="text-3xl hover:text-yellow-300">
-          <Link
-            to="/favoritePlanets"
-            onClick={() => setPlanetStorage(planetStorageLocalStorageItems)}
-          >
+          <Link to="" onClick={stored}>
             {hrefImg ? <FaStar /> : ''}
           </Link>
         </div>
       </div>
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
-        <Link
-          to="/favoritePlanets"
-          onClick={() => setPlanetStorage(planetStorageLocalStorageItems)}
-        >
+        <Link to="/favoritePlanets" onClick={stored}>
           {hrefImg ? <FaStar /> : ''}
         </Link>
       </div>

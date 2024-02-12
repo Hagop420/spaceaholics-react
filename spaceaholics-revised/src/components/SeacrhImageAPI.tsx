@@ -2,17 +2,19 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { RiH1 } from 'react-icons/ri'
 
 export function SearchImageAPI() {
   const [inp, setInp] = useState<any>('')
 
-  const [hrefImg, setHrefImg] = useState<any>()
-
-  const [dataDes, setDataDes] = useState<any>()
+  const [hrefImg, setHrefImg] = useState()
 
   const [dataApi, setDataApi] = useState<any>([])
+  const [isI, setIsI] = useState(true)
 
   const [inputApi, setInputApi] = useState<Response>()
+
+  const [inpReq, setInpReq] = useState<string>('REQUIRED 🌎')
 
   const [planetStorage, setPlanetStorage] = useState([])
 
@@ -43,6 +45,15 @@ export function SearchImageAPI() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInp(e.target.value)
+    const inputSearchTargetCheck = e.target.value
+
+    if (inputSearchTargetCheck === '') {
+      setInpReq('⛔')
+      return
+    } else {
+      setInpReq('✅')
+    }
+    setInpReq('')
   }
 
   // localStorage
@@ -53,8 +64,6 @@ export function SearchImageAPI() {
     editing: null,
     nextEntryId: 1,
   }
-
-  localStorage.getItem('Planet_information')
 
   useEffect(() => {
     const jsonStorage = JSON.stringify(data)
@@ -88,20 +97,27 @@ export function SearchImageAPI() {
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
       setDataApi(dataCol)
-      console.log('dataApi', dataCol[0].description)
+
+      // console.log('dataApi', dataCol[0].description)
 
       return <img src={hrefImg} alt="" />
     } catch (err) {
-      console.log(err)
+      const input_mobile = document.querySelector('.inpMobile')
+
+      if (input_mobile?.value === '') {
+        alert('Input field is a required field')
+        return
+      }
+      return alert('Invalid value field')
     }
   }
 
   function stored(e) {
     // planets localStorage
-    // e.preventDefault()
+    e.preventDefault()
     // useEffect(() => {
     const lsItemsPlanets = {
-      // planetId: data.nextEntryId,
+      planetId: data.nextEntryId,
       planet_image_url: hrefImg,
     }
 
@@ -166,7 +182,7 @@ export function SearchImageAPI() {
 
       <div className="flex justify-center sm:hidden">
         <input
-          className="form-control w-60 rounded"
+          className="form-control w-60 rounded inpMobile"
           type="text"
           value={inp}
           placeholder="Feeling spacy..."
@@ -179,21 +195,56 @@ export function SearchImageAPI() {
         >
           <FaSearch className="search-icon" color="black" />
         </button>
+        <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
       </div>
 
       <div className="m-auto flex justify-center">
         {hrefImg && <img src={hrefImg} className="zoomable" alt="" />}
+        {/* <div className="block">
+          <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
+        </div> */}
 
-        <div className="hidden flex-col item-width sm:block sm:m-auto content-width">
-          <h1 className="text-3xl">{dataApi[0]?.keywords[0]}</h1>
-          <p>{dataApi[0]?.description}</p>
+        <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-7 content-width">
+          <h1 className="text-2xl font-bold flex">
+            {/* {dataApi[0]?.keywords[0]} */}
+            <span className="invisible">l</span>
+            {/* `${<span class=invisible>ewd</span}` */}
+            {dataApi[0]?.keywords[1] ? (
+              <h1>
+                -<span className="invisible">l</span>
+                {dataApi[0]?.keywords[1]}
+              </h1>
+            ) : (
+              <h1>{dataApi[0]?.keywords[1]}</h1>
+            )}
+          </h1>
+          {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
+            <h1>No description available</h1>
+          ) : (
+            <h2>{dataApi[0]?.description}</h2>
+          )}
         </div>
       </div>
 
       <div className="flex flex-col items-center text-center sm:hidden">
-        <h1 className="text-2xl">{dataApi[0]?.keywords[0]}</h1>
-
-        <p>{dataApi[0]?.description_508}</p>
+        <h1 className="text-2xl font-bold flex">
+          {dataApi[0]?.keywords[0]}
+          <span className="invisible">l</span>
+          {/* `${<span class=invisible>ewd</span}` */}
+          {dataApi[0]?.keywords[1] ? (
+            <h1>
+              -<span className="invisible">l</span>
+              {dataApi[0]?.keywords[1]}
+            </h1>
+          ) : (
+            <h1>{dataApi[0]?.keywords[1]}</h1>
+          )}
+        </h1>
+        {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
+          <h1>No description available</h1>
+        ) : (
+          <h2>{dataApi[0]?.description}</h2>
+        )}
 
         <div className="text-3xl hover:text-yellow-300">
           <Link to="" onClick={stored}>

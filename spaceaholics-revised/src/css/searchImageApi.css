@@ -6,3 +6,8 @@
     min-width: 1000px;
   }
 }
+
+.ex {
+  border-radius: 50%;
+  padding: 1px 5px;
+}

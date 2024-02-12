@@ -46,8 +46,13 @@ export function SearchImageAPI() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInp(e.target.value)
     const inputSearchTargetCheck = e.target.value
+    const regexInp = /^\s*$/
+    const inp = document.querySelector('.inpMobile')
 
     if (inputSearchTargetCheck === '') {
+      setInpReq('⛔')
+      return
+    } else if (regexInp.test(inputSearchTargetCheck)) {
       setInpReq('⛔')
       return
     } else {
@@ -65,10 +70,10 @@ export function SearchImageAPI() {
     nextEntryId: 1,
   }
 
-  useEffect(() => {
-    const jsonStorage = JSON.stringify(data)
-    localStorage.setItem('Planet_information', jsonStorage)
-  }, [data])
+  // useEffect(() => {
+  const jsonStorage = JSON.stringify(data)
+  localStorage.setItem('Planet_information', jsonStorage)
+  // }, [data])
 
   // LS end
 
@@ -100,7 +105,7 @@ export function SearchImageAPI() {
 
       // console.log('dataApi', dataCol[0].description)
 
-      return <img src={hrefImg} alt="" />
+      // return <img src={hrefImg} alt="" />
     } catch (err) {
       const input_mobile = document.querySelector('.inpMobile')
 

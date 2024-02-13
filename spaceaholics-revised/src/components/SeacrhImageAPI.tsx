@@ -10,6 +10,7 @@ export function SearchImageAPI() {
   const [hrefImg, setHrefImg] = useState()
 
   const [dataApi, setDataApi] = useState<any>([])
+
   const [isI, setIsI] = useState(true)
 
   const [inputApi, setInputApi] = useState<Response>()
@@ -84,11 +85,11 @@ export function SearchImageAPI() {
       const getApodCurrImg = await fetch(
         `https://images-api.nasa.gov/search?q=${inp}`,
       )
+
       const jsonConverted = await getApodCurrImg.json()
       setInputApi(jsonConverted)
       console.log(jsonConverted?.collection)
-      // const rend = Math.random() * getApodCurrImg.collection
-      // console.log(rend)
+
       console.log(jsonConverted.collection)
 
       const randomNumber = Math.floor(
@@ -101,24 +102,28 @@ export function SearchImageAPI() {
         jsonConverted?.collection.items[randomNumber].links[0].href
       console.log(apodImgCol)
 
+      setHrefImg(apodImgCol)
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
-      // for (let i = 0; i < dataCol.length; i++) {
-      //   if (dataCol[0]?.keywords) {
-      //     alert('Skipping image because keywords are missing')
-      //     break
-      //   }
-      // }
+      for (let i = 0; i < dataCol.length; i++) {
+        if (typeof dataCol[i]?.keywords === 'undefined') {
+          continue
+        } else if (dataCol[i]?.description === dataCol[i]?.description) {
+          function regexTest(dataC) {
+            // const regex = /<\s*([a-zA-Z0-9\-]+)(\s+[a-zA-Z0-9\-]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*(?:class|id)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)[^>]*>/g
 
-      setHrefImg(apodImgCol)
+            // const regex = /<\s*([a-zA-Z0-9\-]+)(\s+[a-zA-Z0-9\-]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*>/g
 
-      setDataApi(dataCol)
-
-      useEffect(() => {
-        const regex = /(<([^>]+)>)/gi
-        const result = dataApi[0]?.description.replace(regex, '')
-        setDataApi(result) // Wrap result in an array before setting dataApi
-      }, [])
+            // const result = dataApi[0]?.description.replace(regex, '')
+            // return result
+            const regex = /<[^>]*>/g // Match any HTML tags
+            const result = dataApi[0]?.description.replace(regex, '') // Remove HTML tags
+            return result
+          }
+          setDataApi(regexTest(dataCol))
+        }
+      }
+      // setDataApi(dataCol)
 
       // return <img src={hrefImg} alt="" />
     } catch (err) {
@@ -128,7 +133,7 @@ export function SearchImageAPI() {
         alert('Input field is a required field')
         return
       }
-      alert('Invalid value field')
+      alert('Input value invalid')
     }
   }
 
@@ -150,8 +155,6 @@ export function SearchImageAPI() {
     // Update data.entries
     data.nextEntryId++
     data.entries.push(lsItemsPlanets)
-
-    // }, [])
 
     // LS end
   }

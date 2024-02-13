@@ -14,7 +14,7 @@ export function SearchImageAPI() {
 
   const [inputApi, setInputApi] = useState<Response>()
 
-  const [inpReq, setInpReq] = useState<string>('REQUIRED 🌎')
+  const [inpReq, setInpReq] = useState<string>('')
 
   const [planetStorage, setPlanetStorage] = useState([])
 
@@ -90,20 +90,27 @@ export function SearchImageAPI() {
       // const rend = Math.random() * getApodCurrImg.collection
       // console.log(rend)
       console.log(jsonConverted.collection)
+
       const randomNumber = Math.floor(
         Math.random() * jsonConverted?.collection.items.length,
       )
 
+      console.log(randomNumber)
+
       const apodImgCol =
         jsonConverted?.collection.items[randomNumber].links[0].href
-
-      setHrefImg(apodImgCol)
+      console.log(apodImgCol)
 
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
-      setDataApi(dataCol)
+      if (dataCol[0]?.isArray(keywords)) {
+        const imgApiJ =
+          jsonConverted?.collection.items[randomNumber].links[0].href + 1
+        setHrefImg(imgApiJ)
+      }
+      setHrefImg(apodImgCol)
 
-      // console.log('dataApi', dataCol[0].description)
+      setDataApi(dataCol)
 
       // return <img src={hrefImg} alt="" />
     } catch (err) {

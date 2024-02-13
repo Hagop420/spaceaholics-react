@@ -103,17 +103,22 @@ export function SearchImageAPI() {
 
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
-      for (let i = 0; i < dataCol.length; i++) {
-        if (!dataCol[0]?.keywords) {
-          alert('Skipping image because keywords are missing')
-          continue
-        }
-        setDataApi(dataCol)
-      }
+      // for (let i = 0; i < dataCol.length; i++) {
+      //   if (dataCol[0]?.keywords) {
+      //     alert('Skipping image because keywords are missing')
+      //     break
+      //   }
+      // }
 
       setHrefImg(apodImgCol)
 
       setDataApi(dataCol)
+
+      useEffect(() => {
+        const regex = /(<([^>]+)>)/gi
+        const result = dataApi[0]?.description.replace(regex, '')
+        setDataApi(result) // Wrap result in an array before setting dataApi
+      }, [])
 
       // return <img src={hrefImg} alt="" />
     } catch (err) {
@@ -123,7 +128,7 @@ export function SearchImageAPI() {
         alert('Input field is a required field')
         return
       }
-      return alert('Invalid value field')
+      alert('Invalid value field')
     }
   }
 

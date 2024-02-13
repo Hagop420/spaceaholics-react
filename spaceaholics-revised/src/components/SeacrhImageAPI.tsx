@@ -103,11 +103,14 @@ export function SearchImageAPI() {
 
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
-      if (dataCol[0]?.isArray(keywords)) {
-        const imgApiJ =
-          jsonConverted?.collection.items[randomNumber].links[0].href + 1
-        setHrefImg(imgApiJ)
+      for (let i = 0; i < dataCol.length; i++) {
+        if (!dataCol[0]?.keywords) {
+          alert('Skipping image because keywords are missing')
+          continue
+        }
+        setDataApi(dataCol)
       }
+
       setHrefImg(apodImgCol)
 
       setDataApi(dataCol)

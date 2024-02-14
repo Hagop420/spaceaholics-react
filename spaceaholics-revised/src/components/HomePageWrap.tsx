@@ -5,7 +5,7 @@ import { SearchImageAPI } from './SeacrhImageAPI'
 export function HomePageWrap() {
   return (
     <>
-      <div data-view="entries">
+      <div>
         <Navbar />
         <ApodImageAPI />
         <SearchImageAPI />

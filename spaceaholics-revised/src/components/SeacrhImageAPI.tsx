@@ -1,8 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { RiH1 } from 'react-icons/ri'
+import { Link, useNavigate } from 'react-router-dom'
+import { Item } from './planetProvider'
+import { usePlanet } from '../lib/usePlanet'
 
 export function SearchImageAPI() {
   const [inp, setInp] = useState<any>('')
@@ -17,9 +18,13 @@ export function SearchImageAPI() {
 
   const [inpReq, setInpReq] = useState<string>('')
 
-  const [planetStorage, setPlanetStorage] = useState([])
+  const [displayedContent, setDisplayedContent] = useState<Item>()
+
+  const { setPlanetFavorite } = usePlanet()
 
   // video pausing
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     function framesChange() {
@@ -64,16 +69,15 @@ export function SearchImageAPI() {
 
   // localStorage
 
-  let data = {
-    view: 'entries',
-    entries: [],
-    editing: null,
-    nextEntryId: 1,
-  }
+  // let data = {
+  //   view: 'entries',
+  //   entries: [],
+  //   editing: null,
+  //   nextEntryId: 1,
+  // }
 
   // useEffect(() => {
-  const jsonStorage = JSON.stringify(data)
-  localStorage.setItem('Planet_information', jsonStorage)
+
   // }, [data])
 
   // LS end
@@ -103,21 +107,19 @@ export function SearchImageAPI() {
       console.log(apodImgCol)
 
       setHrefImg(apodImgCol)
+      setDisplayedContent(jsonConverted?.collection.items[randomNumber])
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
       for (let i = 0; i < dataCol.length; i++) {
-        if (typeof dataCol[i]?.keywords === 'undefined') {
-          continue
+        if (dataCol[i]?.keywords) {
+          const regex = /<[^>]*>/g // Match any HTML tags
+          const result = dataCol[i]?.description.replace(regex, '')
+          // setDataApi()
+          dataCol[i].description = result
+          console.log(result)
         }
-        // console.log(dataCol[i])
-        // function regexTest(dataC) {
-        const regex = /<[^>]*>/g // Match any HTML tags
-        const result = dataCol[i]?.description.replace(regex, '')
-
-        // }
-        setDataApi(result)
       }
-      // setDataApi(dataCol)
+      setDataApi(dataCol)
 
       // return <img src={hrefImg} alt="" />
     } catch (err) {
@@ -130,25 +132,14 @@ export function SearchImageAPI() {
       alert('Input value invalid')
     }
   }
+  // console.log(displayedContent)
 
-  function stored(e) {
-    // planets localStorage
-    e.preventDefault()
-    // useEffect(() => {
-    const lsItemsPlanets = {
-      planetId: data.nextEntryId,
-      planet_image_url: hrefImg,
-    }
+  function stored() {
+    if (displayedContent === undefined) return
 
-    // Set local storage
-    localStorage.setItem('Planet_information', JSON.stringify(data))
-    // localStorage.getItem('Planet_information')
+    setPlanetFavorite(displayedContent)
 
-    // setPlanetStorage(lsItemsPlanets)
-
-    // Update data.entries
-    data.nextEntryId++
-    data.entries.push(lsItemsPlanets)
+    navigate('/favoritePlanets')
 
     // LS end
   }
@@ -223,7 +214,7 @@ export function SearchImageAPI() {
 
         <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-7 content-width">
           <h1 className="text-2xl font-bold flex">
-            {/* {dataApi[0]?.keywords[0]} */}
+            <h1>{dataApi[0]?.title}</h1>
             <span className="invisible">l</span>
             {/* `${<span class=invisible>ewd</span}` */}
             {dataApi[0]?.keywords[1] ? (
@@ -245,35 +236,32 @@ export function SearchImageAPI() {
 
       <div className="flex flex-col items-center text-center sm:hidden">
         <h1 className="text-2xl font-bold flex">
-          {dataApi[0]?.keywords[0]}
+          {dataApi[0]?.title}
           <span className="invisible">l</span>
           {/* `${<span class=invisible>ewd</span}` */}
           {dataApi[0]?.keywords[1] ? (
             <h1>
               -<span className="invisible">l</span>
-              {dataApi[0]?.keywords[1]}
+              {dataApi[0]?.center}
             </h1>
           ) : (
-            <h1>{dataApi[0]?.keywords[1]}</h1>
+            <h1>{dataApi[0]?.date_created}</h1>
           )}
         </h1>
         {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
           <h1>No description available</h1>
         ) : (
+          // <h2>dataApi</h2>
           <h2>{dataApi[0]?.description}</h2>
         )}
 
         <div className="text-3xl hover:text-yellow-300">
-          <Link to="" onClick={stored}>
-            {hrefImg ? <FaStar /> : ''}
-          </Link>
+          <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
         </div>
       </div>
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
-        <Link to="/favoritePlanets" onClick={stored}>
-          {hrefImg ? <FaStar /> : ''}
-        </Link>
+        <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
       </div>
     </>
   )

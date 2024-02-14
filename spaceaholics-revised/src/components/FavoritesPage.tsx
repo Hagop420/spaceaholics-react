@@ -1,9 +1,13 @@
-export function FavoritePlanets(entry) {
-  return (
-    <ul className="flex flex-col items-center justify-center h-screen">
-      <li>
-        <img src={entry.planet_image_url} alt="" />
-      </li>
-    </ul>
-  )
+import { usePlanet } from '../lib/usePlanet'
+import { Item } from './planetProvider'
+
+type PlanetStoringImagesProp = {
+  planet: Item
+}
+
+export function FavoritePlanets({ planet }: PlanetStoringImagesProp) {
+  const { planetItem } = usePlanet()
+  console.log(planetItem)
+
+  return <>{/* <h1>{planetItem.map}</h1> */}</>
 }

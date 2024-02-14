@@ -1,19 +1,33 @@
+import { useState } from 'react'
 import './App.css'
 import { HomePageWrap } from './components/HomePageWrap'
 import { FavoritePlanets } from './components/FavoritesPage'
-import { ApodImageAPI } from './components/ApodImageAPI'
-import { Navbar } from './components/Navbar'
-import { SearchImageAPI } from './components/SeacrhImageAPI'
+import { PlanetProvider , planetContext , type Item } from './components/planetProvider'
 import { Route, Routes } from 'react-router-dom'
 
+
 function App() {
+  const [planetItems, setPlanetItems] = useState<Item[]>([])
+  function setItemFavoritePlanet(item: Item) {
+    const planetFav = [...planetItems , item]
+    setPlanetItems(planetFav)
+    
+    localStorage.setItem('Planet_information' , JSON.stringify(planetFav))
+  }
+
+  const contextValuePlanet = {
+    planetItem: planetItems,
+    setPlanetFavorite: setItemFavoritePlanet
+  }
   return (
-    <>
+    
+    <PlanetProvider value={contextValuePlanet}>
       <Routes>
         <Route index element={<HomePageWrap />} />
         <Route path="/favoritePlanets" element={<FavoritePlanets />} />
       </Routes>
-    </>
+    </PlanetProvider>
+    
   )
 }
 

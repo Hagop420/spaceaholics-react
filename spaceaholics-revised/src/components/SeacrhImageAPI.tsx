@@ -108,20 +108,14 @@ export function SearchImageAPI() {
       for (let i = 0; i < dataCol.length; i++) {
         if (typeof dataCol[i]?.keywords === 'undefined') {
           continue
-        } else if (dataCol[i]?.description === dataCol[i]?.description) {
-          function regexTest(dataC) {
-            // const regex = /<\s*([a-zA-Z0-9\-]+)(\s+[a-zA-Z0-9\-]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*(?:class|id)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)[^>]*>/g
-
-            // const regex = /<\s*([a-zA-Z0-9\-]+)(\s+[a-zA-Z0-9\-]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*>/g
-
-            // const result = dataApi[0]?.description.replace(regex, '')
-            // return result
-            const regex = /<[^>]*>/g // Match any HTML tags
-            const result = dataApi[0]?.description.replace(regex, '') // Remove HTML tags
-            return result
-          }
-          setDataApi(regexTest(dataCol))
         }
+        // console.log(dataCol[i])
+        // function regexTest(dataC) {
+        const regex = /<[^>]*>/g // Match any HTML tags
+        const result = dataCol[i]?.description.replace(regex, '')
+
+        // }
+        setDataApi(result)
       }
       // setDataApi(dataCol)
 

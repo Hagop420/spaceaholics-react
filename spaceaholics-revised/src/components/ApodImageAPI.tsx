@@ -3,6 +3,8 @@ import '../css/apodAPI.css'
 
 export function ApodImageAPI() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
+  const [apod, setAPOD] = useState<Response>()
+  const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -11,9 +13,6 @@ export function ApodImageAPI() {
       setTheme('lofi') //light
     }
   }
-
-  const [apod, setAPOD] = useState<Response>()
-  const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
   useEffect(() => {
     localStorage.setItem('theme', theme)
@@ -27,17 +26,18 @@ export function ApodImageAPI() {
         const response = await fetch(
           `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
         )
-        console.log('hi')
+        console.log('yaygy sjabhj')
+
         const data = await response.json()
-        // console.log(data)
         setAPOD(data)
       } catch (err) {
+        console.log('shit')
         console.log(err)
       }
     }
 
     apodFetchFunction()
-  }, [apiKey])
+  }, [])
   return (
     <>
       {/* Light and dark mode component rendering */}
@@ -72,7 +72,12 @@ export function ApodImageAPI() {
       {/* end Light and dark mode section */}
 
       <div className="container m-auto block sm:flex md:p-3">
-        <img src={apod?.hdurl} alt="image" />
+        <div className="hidden sm:flex">
+          <img src={apod?.hdurl} alt="APOD Img." />
+        </div>
+        <div className="flex justify-center sm:hidden">
+          <img src={apod?.hdurl} alt="Astonomy picture of the day." />
+        </div>
 
         <hr className="m-4" />
         <div className="text-center block sm:text-left sm:flex sm:flex-col sm:justify-center">

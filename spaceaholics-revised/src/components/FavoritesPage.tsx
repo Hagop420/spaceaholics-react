@@ -1,13 +1,15 @@
 import { usePlanet } from '../lib/usePlanet'
-import { Item } from './planetProvider'
+import { Item, PlanetProvider } from './planetProvider'
 
-type PlanetStoringImagesProp = {
-  planet: Item
+type PlanetStoringImagesAndContentsProp = {
+  planet: Item[]
 }
 
-export function FavoritePlanets({ planet }: PlanetStoringImagesProp) {
-  const { planetItem } = usePlanet()
-  console.log(planetItem)
+export function FavoritePlanets({
+  planet,
+}: PlanetStoringImagesAndContentsProp) {
+  const { setPlanetFavorite } = usePlanet()
+  console.log()
 
-  return <>{/* <h1>{planetItem.map}</h1> */}</>
+  return <>{console.log(planet)}</>
 }

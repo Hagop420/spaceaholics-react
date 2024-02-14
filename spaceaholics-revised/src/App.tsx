@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { HomePageWrap } from './components/HomePageWrap'
 import { FavoritePlanets } from './components/FavoritesPage'
-import { PlanetProvider , planetContext , type Item } from './components/planetProvider'
+import { PlanetProvider , type Item } from './components/planetProvider'
 import { Route, Routes } from 'react-router-dom'
 
 
@@ -24,7 +24,7 @@ function App() {
     <PlanetProvider value={contextValuePlanet}>
       <Routes>
         <Route index element={<HomePageWrap />} />
-        <Route path="/favoritePlanets" element={<FavoritePlanets />} />
+        <Route path="/favoritePlanets" element={<FavoritePlanets planet={planetItems} />} />
       </Routes>
     </PlanetProvider>
     

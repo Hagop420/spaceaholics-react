@@ -22,7 +22,7 @@ type PlanetItem = {
 }
 
 export type Item = {
-  href: string
+  href?: string
   data: {
     center?: string
     title?: string
@@ -38,6 +38,27 @@ export type Item = {
     href?: string
   }[]
 }
+// export type Item = {
+//   href: string
+//   data: [
+//     {
+//       center?: string
+//       title?: string
+//       nasa_id?: string
+//       date_created?: string
+//       keywords?: string[]
+//       media_type?: string
+//       description_508?: string
+//       secondary_creator?: string
+//       description?: string
+//     },
+//   ]
+//   links: [
+//     {
+//       href?: string
+//     },
+//   ]
+// }
 
 type planetContextVal = {
   planetItem: Item[]

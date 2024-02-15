@@ -98,19 +98,13 @@ export function SearchImageAPI() {
       const dataCol = jsonConverted?.collection.items[randomNumber].data
 
       for (let i = 0; i < dataCol.length; i++) {
-        if (dataCol[i]?.keywords) {
-          // const regex = /<[^>]*>/g // Match any HTML tags
-          // const result = dataCol[i]?.description.replace(regex, '')
-          // // setDataApi()
-          // dataCol[i].description = result
-          // console.log(result)
-
+        if (dataCol[i]?.keywords === undefined) {
+          break
+        } else if (dataCol[i]?.keywords) {
           const regexTags = /<[^>]*>/g // Match any HTML tags
           const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
-
           let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
           result = result.replace(regexEntities, '') // Remove HTML entities
-
           dataCol[i].description = result
           console.log(result)
         }
@@ -234,9 +228,9 @@ export function SearchImageAPI() {
           {dataApi[0]?.title}
           <span className="invisible">l</span>
           {/* `${<span class=invisible>ewd</span}` */}
-          {dataApi[0]?.keywords[1] ? (
+          {dataApi[0]?.title ? (
             <h1>
-              -<span className="invisible">l</span>
+              <span className="invisible">l</span>
               {/* {dataApi[0]?.center} */}
             </h1>
           ) : (

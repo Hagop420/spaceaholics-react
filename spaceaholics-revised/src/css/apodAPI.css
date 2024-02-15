@@ -5,7 +5,7 @@ img {
 @media (min-width: 640px) {
   img {
     height: 400px !important;
-    width: 200% !important;
+    width: 200%;
     object-fit: cover;
   }
 

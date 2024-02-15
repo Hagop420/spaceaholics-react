@@ -15,7 +15,7 @@ function App() {
 
 
   function setItemFavoritePlanet(item: Item) {
-    const planetFav = [...planetItems, item]
+    let planetFav = [...planetItems, item]
     setPlanetItems(planetFav)
     
     localStorage.setItem('Planet_information', JSON.stringify(planetFav))
@@ -25,7 +25,6 @@ function App() {
 
   function storedContents() {
       const getStored = localStorage.getItem('Planet_information')
-      // const storedLS = JSON.parse(getStored)
       setPlanetItems(JSON.parse(getStored))
 }
 

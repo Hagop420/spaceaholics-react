@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { HomePageWrap } from './components/HomePageWrap'
 import { FavoritePlanets } from './components/FavoritesPage'
@@ -6,22 +6,36 @@ import { PlanetProvider , type Item } from './components/planetProvider'
 import { Route, Routes } from 'react-router-dom'
 
 
+
+
 function App() {
   const [planetItems, setPlanetItems] = useState<Item[]>([])
-  
-  localStorage.getItem('Planet_information')
-  
+
+  const [planetPull, setPlanetPull] = useState<Item>()
+
+
   function setItemFavoritePlanet(item: Item) {
     const planetFav = [...planetItems, item]
     setPlanetItems(planetFav)
     
-    localStorage.setItem('Planet_information' , JSON.stringify(planetFav))
+    localStorage.setItem('Planet_information', JSON.stringify(planetFav))
   }
+
+ 
+
+  function storedContents() {
+      const getStored = localStorage.getItem('Planet_information')
+      // const storedLS = JSON.parse(getStored)
+      setPlanetItems(JSON.parse(getStored))
+}
+
+
 
 
   const contextValuePlanet = {
     planetItem: planetItems,
-    setPlanetFavorite: setItemFavoritePlanet
+    setPlanetFavorite: setItemFavoritePlanet,
+    setStoredFavorite: storedContents
   }
   return (
     

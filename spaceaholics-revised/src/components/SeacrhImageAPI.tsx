@@ -237,14 +237,19 @@ export function SearchImageAPI() {
           {dataApi[0]?.keywords[1] ? (
             <h1>
               -<span className="invisible">l</span>
-              {dataApi[0]?.center}
+              {/* {dataApi[0]?.center} */}
             </h1>
           ) : (
             <h1>{dataApi[0]?.date_created}</h1>
           )}
         </h1>
-        <div className="block font-bold bg-amber-300 p-1">
-          <h1 className="text-black">Date Taken: {dataApi[0]?.date_created}</h1>
+        <div className="block font-bold">
+          {dataApi[0]?.date_created ? (
+            <h1>Date Taken: {dataApi[0]?.date_created}</h1>
+          ) : (
+            // <h2>dataApi</h2>
+            <h2>{dataApi[0]?.description}</h2>
+          )}
         </div>
         {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
           <h1>No description available</h1>

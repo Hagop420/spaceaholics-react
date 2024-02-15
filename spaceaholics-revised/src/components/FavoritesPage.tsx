@@ -1,7 +1,8 @@
 import { FaPencil } from 'react-icons/fa6'
 import { Item } from './planetProvider'
 import { useNavigate } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { usePlanet } from '../lib/usePlanet'
 
 type PlanetStoringImagesAndContentsProp = {
   planet: Item[]
@@ -20,7 +21,7 @@ export function FavoritePlanets({
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
 
-  const [storageItem, setStorgeItem] = useState()
+  const { setStoredFavorite } = usePlanet()
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -37,14 +38,10 @@ export function FavoritePlanets({
   }, [theme])
 
   useEffect(() => {
-    localStorage.getItem('Planet_information')
-  })
+    setStoredFavorite()
+  }, [])
 
-  function isValidUrl(url) {
-    // Regular expression for validating URLs
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/
-    return urlPattern.test(url)
-  }
+  console.log(planet)
 
   return (
     <>
@@ -92,22 +89,21 @@ export function FavoritePlanets({
       </div>
       {/* end Light and dark mode section */}
 
-      <ul className="list-none p-4 md:grid md:grid-cols-2 sm:grid sm:grid-cols-2">
+      <ul className="list-none">
         {planet.map((pl) => (
           <li>
-            {pl.links.map((solar) => (
-              <>
-                <div className="flex">
-                  <img src={solar.href} className="m-auto" />
-                  <h2 className="text-center">
-                    {planet.map((pls) =>
-                      pls.data.map((plD) => <h2>{plD.title}</h2>),
-                    )}
+            <>
+              <div className="flex">
+                <img src={pl.links[0]?.href} className="m-auto" />
+                <h2 className="text-center">
+                  <h2>{pl.data[0].title}</h2>
+                  <div className="flex justify-center">
                     <FaPencil />
-                  </h2>
-                </div>
-              </>
-            ))}
+                  </div>
+                </h2>
+              </div>
+            </>
+            {/* ))} */}
           </li>
         ))}
       </ul>

@@ -4,6 +4,7 @@ import { FaSearch, FaStar } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { Item } from './planetProvider'
 import { usePlanet } from '../lib/usePlanet'
+import { ApodImageAPI } from './ApodImageAPI'
 
 export function SearchImageAPI() {
   const [inp, setInp] = useState<any>('')
@@ -122,6 +123,7 @@ export function SearchImageAPI() {
       alert('Input value invalid')
     }
   }
+
   // console.log(displayedContent)
 
   function stored() {
@@ -130,6 +132,11 @@ export function SearchImageAPI() {
     setPlanetFavorite(displayedContent)
 
     navigate('/favoritePlanets')
+
+    useEffect(() => {
+      setHrefImg(hrefImg)
+      setDataApi(dataApi)
+    }, [])
 
     // LS end
   }
@@ -197,7 +204,9 @@ export function SearchImageAPI() {
       </div>
 
       <div className="m-auto flex justify-center">
-        {hrefImg && <img src={hrefImg} className="zoomable" alt="" />}
+        {hrefImg && (
+          <img src={hrefImg} className="zoomable rounded-none" alt="" />
+        )}
         {/* <div className="block">
           <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
         </div> */}

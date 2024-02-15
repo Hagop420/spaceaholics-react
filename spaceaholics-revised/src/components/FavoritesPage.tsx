@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
-// import '../css/favorites.css'
+import BH_IMAGE from '../images/black-hole-image.png'
+import '../css/favorites.css'
 
 type PlanetStoringImagesAndContentsProp = {
   planet: Item[]
@@ -23,7 +24,9 @@ export function FavoritePlanets({
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
 
-  const { planetItem, setPlanetFavorite, setStoredFavorite } = usePlanet()
+  const [storageState, setStorageState] = useState<Item>()
+
+  const { setStoredFavorite } = usePlanet()
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -156,6 +159,15 @@ export function FavoritePlanets({
     setStoredFavorite()
   }, [])
 
+  function delFunctionPlanet(e: {
+    target: { closest: (arg0: string) => any }
+  }) {
+    navigate('/')
+    const closeTarget = e.target.closest('.divWrap')
+
+    const planetText = closeTarget.children[0].textContent
+  }
+
   return (
     <>
       <nav className="p-3 navbar flex justify-between sm:justify-around bg-slate-400">
@@ -202,17 +214,31 @@ export function FavoritePlanets({
       </div>
       {/* end Light and dark mode section */}
 
+      <div className="flex justify-center">
+        <h1 className="text-3xl">Favorite Planets</h1>
+      </div>
+
       {/* {setStoredFavorite || ( */}
-      <ul className="list-none flex flex-col md:grid md:gap-0 md:grid-cols-2 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 sm:gap-4">
+      <ul className="list-none flex flex-col  md:grid md:gap-0 md:grid-cols-2 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 sm:gap-4">
         {planet.map((pl) => (
           <li>
             <>
-              <img src={pl.links[0]?.href} className="md:object-cover" />
+              <img src={pl.links[0]?.href} className="m-auto lg:rounded" />
               <div className=""></div>
               <div className="flex flex-col items-center">
-                <h2>{pl.data[0].title}</h2>
-                <h2>{pl.data[0].date_created}</h2>
-                <FaPencil className="text-2xl m-3" />
+                <div className="divWrap text-center">
+                  <h2>{pl.data[0].title}</h2>
+                  <h2>{pl.data[0].date_created}</h2>
+                  <span>
+                    {planet.length !== 0 ? (
+                      <button className="text-2xl" onClick={delFunctionPlanet}>
+                        <FaPencil />
+                      </button>
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </div>
               </div>
             </>
             {/* ))} */}

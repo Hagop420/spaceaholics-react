@@ -69,8 +69,19 @@ export function ApodImageAPI() {
       </div>
       {/* end Light and dark mode section */}
 
-      <div className="container m-auto block sm:flex md:p-3">
-        <img src={apod?.hdurl} alt="APOD Img." />
+      <div className="container m-auto block sm:flex">
+        <div className="flex flex-col items-center">
+          <img
+            src={apod?.hdurl}
+            className="rounded-none sm:hidden"
+            alt="Astronomy picture of the day."
+          />
+          <img
+            src={apod?.hdurl}
+            className="hidden rounded-none sm:block"
+            alt="APOD Img."
+          />
+        </div>
 
         {/* <div className="flex justify-center sm:hidden">
           <img src={apod?.hdurl} alt="Astonomy picture of the day." />
@@ -84,7 +95,9 @@ export function ApodImageAPI() {
               {apod?.explanation}
             </p>
           </div>
-          <p className="m-4">{`@ Copyright ${apod?.date}`}</p>
+          <p className="m-4">{` @ Copyright ${
+            apod?.date || 'placeholder.'
+          }`}</p>
         </div>
       </div>
     </>

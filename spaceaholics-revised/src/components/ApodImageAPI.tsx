@@ -26,12 +26,10 @@ export function ApodImageAPI() {
         const response = await fetch(
           `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
         )
-        console.log('yaygy sjabhj')
 
         const data = await response.json()
         setAPOD(data)
       } catch (err) {
-        console.log('shit')
         console.log(err)
       }
     }
@@ -72,12 +70,11 @@ export function ApodImageAPI() {
       {/* end Light and dark mode section */}
 
       <div className="container m-auto block sm:flex md:p-3">
-        <div className="hidden sm:flex">
-          <img src={apod?.hdurl} alt="APOD Img." />
-        </div>
-        <div className="flex justify-center sm:hidden">
+        <img src={apod?.hdurl} alt="APOD Img." />
+
+        {/* <div className="flex justify-center sm:hidden">
           <img src={apod?.hdurl} alt="Astonomy picture of the day." />
-        </div>
+        </div> */}
 
         <hr className="m-4" />
         <div className="text-center block sm:text-left sm:flex sm:flex-col sm:justify-center">

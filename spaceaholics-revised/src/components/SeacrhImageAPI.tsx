@@ -67,19 +67,6 @@ export function SearchImageAPI() {
     setInpReq('')
   }
 
-  // localStorage
-
-  // let data = {
-  //   view: 'entries',
-  //   entries: [],
-  //   editing: null,
-  //   nextEntryId: 1,
-  // }
-
-  // useEffect(() => {
-
-  // }, [data])
-
   // LS end
 
   // input search function
@@ -112,9 +99,18 @@ export function SearchImageAPI() {
 
       for (let i = 0; i < dataCol.length; i++) {
         if (dataCol[i]?.keywords) {
-          const regex = /<[^>]*>/g // Match any HTML tags
-          const result = dataCol[i]?.description.replace(regex, '')
-          // setDataApi()
+          // const regex = /<[^>]*>/g // Match any HTML tags
+          // const result = dataCol[i]?.description.replace(regex, '')
+          // // setDataApi()
+          // dataCol[i].description = result
+          // console.log(result)
+
+          const regexTags = /<[^>]*>/g // Match any HTML tags
+          const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
+
+          let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
+          result = result.replace(regexEntities, '') // Remove HTML entities
+
           dataCol[i].description = result
           console.log(result)
         }
@@ -215,16 +211,15 @@ export function SearchImageAPI() {
         <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-7 content-width">
           <h1 className="text-2xl font-bold flex">
             <h1>{dataApi[0]?.title}</h1>
-            <span className="invisible">l</span>
-            {/* `${<span class=invisible>ewd</span}` */}
+            {/* <span className="invisible">l</span>
+            `${<span class=invisible>ewd</span}`
             {dataApi[0]?.keywords[1] ? (
               <h1>
                 -<span className="invisible">l</span>
-                {dataApi[0]?.keywords[1]}
+                {dataApi[0]?.keywords[2]}
               </h1>
-            ) : (
-              <h1>{dataApi[0]?.keywords[1]}</h1>
-            )}
+            ) : ( */}
+            {/* )} */}
           </h1>
           {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
             <h1>No description available</h1>
@@ -235,7 +230,7 @@ export function SearchImageAPI() {
       </div>
 
       <div className="flex flex-col items-center text-center sm:hidden">
-        <h1 className="text-2xl font-bold flex">
+        <h1 className="text-2xl p-1 m-1 font-bold flex">
           {dataApi[0]?.title}
           <span className="invisible">l</span>
           {/* `${<span class=invisible>ewd</span}` */}
@@ -248,6 +243,9 @@ export function SearchImageAPI() {
             <h1>{dataApi[0]?.date_created}</h1>
           )}
         </h1>
+        <div className="block font-bold bg-amber-300 p-1">
+          <h1 className="text-black">Date Taken: {dataApi[0]?.date_created}</h1>
+        </div>
         {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
           <h1>No description available</h1>
         ) : (

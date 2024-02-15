@@ -1,15 +1,15 @@
-
-
-img{
-  padding: .6rem;
+img {
+  padding: 0.6rem;
 }
 
-@media(min-width:640px){
+@media (min-width: 640px) {
   img {
-    height:400px !important
+    height: 400px !important;
+    width: 200% !important;
+    object-fit: cover;
   }
 
   .space-APOD-content {
-    min-width: 550px
-}
+    min-width: 550px;
+  }
 }

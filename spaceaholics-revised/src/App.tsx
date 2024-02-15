@@ -8,12 +8,16 @@ import { Route, Routes } from 'react-router-dom'
 
 function App() {
   const [planetItems, setPlanetItems] = useState<Item[]>([])
+  
+  localStorage.getItem('Planet_information')
+  
   function setItemFavoritePlanet(item: Item) {
-    const planetFav = [...planetItems , item]
+    const planetFav = [...planetItems, item]
     setPlanetItems(planetFav)
     
     localStorage.setItem('Planet_information' , JSON.stringify(planetFav))
   }
+
 
   const contextValuePlanet = {
     planetItem: planetItems,

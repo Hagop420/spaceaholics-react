@@ -12,4 +12,8 @@ img {
   .space-APOD-content {
     min-width: 550px;
   }
+
+  .bigApiImg {
+    width: 150% !important;
+  }
 }

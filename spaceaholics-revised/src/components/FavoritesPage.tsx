@@ -7,6 +7,7 @@ import { FaHome } from 'react-icons/fa'
 import BH_IMAGE from '../images/black-hole-image.png'
 import '../css/favorites.css'
 
+//planet array type []
 type PlanetStoringImagesAndContentsProp = {
   planet: Item[]
 }
@@ -18,16 +19,23 @@ export function FavoritePlanets({
 
   const navigate = useNavigate()
 
+  // navbar home button function
   const homeApi = () => {
     navigate('/')
   }
 
+  // state for theme
+
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
 
+  // state for Item object - only 1
   const [storageState, setStorageState] = useState<Item>()
+
+  // LS destructured
 
   const { setStoredFavorite } = usePlanet()
 
+  // browser theme
   function handleToggle(e) {
     if (e.target.checked) {
       setTheme('night')
@@ -35,7 +43,7 @@ export function FavoritePlanets({
       setTheme('lofi') //light
     }
   }
-
+  // browser theme
   useEffect(() => {
     localStorage.setItem('theme', theme)
     const localTheme = localStorage.getItem('theme') ?? 'lofi'
@@ -155,17 +163,15 @@ export function FavoritePlanets({
     )
   }
 
+  // get my local storage items
   useEffect(() => {
     setStoredFavorite()
   }, [])
 
-  function delFunctionPlanet(e: {
-    target: { closest: (arg0: string) => any }
-  }) {
-    navigate('/')
-    const closeTarget = e.target.closest('.divWrap')
+  // when pencil icon clicked fire this function
 
-    const planetText = closeTarget.children[0].textContent
+  function delFunctionPlanet(e) {
+    navigate('/')
   }
 
   return (
@@ -218,7 +224,6 @@ export function FavoritePlanets({
         <h1 className="text-3xl">Favorite Planets</h1>
       </div>
 
-      {/* {setStoredFavorite || ( */}
       <ul className="list-none flex flex-col  md:grid md:gap-0 md:grid-cols-2 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 sm:gap-4">
         {planet.map((pl) => (
           <li>
@@ -241,11 +246,9 @@ export function FavoritePlanets({
                 </div>
               </div>
             </>
-            {/* ))} */}
           </li>
         ))}
       </ul>
-      {/* )} */}
     </>
   )
 }

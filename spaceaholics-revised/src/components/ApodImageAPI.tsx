@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react'
+import placeholderImage from '../images/placeholder-image.jpg'
 import '../css/apodAPI.css'
+
+// browser theme
 
 export function ApodImageAPI() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
+
+  //state for apod image response
   const [apod, setAPOD] = useState<Response>()
+
+  // api key
   const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
+  // browser theme
   function handleToggle(e) {
     if (e.target.checked) {
       setTheme('night')
@@ -13,12 +21,14 @@ export function ApodImageAPI() {
       setTheme('lofi') //light
     }
   }
-
+  // browser theme
   useEffect(() => {
     localStorage.setItem('theme', theme)
     const localTheme = localStorage.getItem('theme') ?? 'lofi'
     document.querySelector('html')?.setAttribute('data-theme', localTheme)
   }, [theme])
+
+  // Fetching the APOD image API
 
   useEffect(() => {
     async function apodFetchFunction() {
@@ -70,34 +80,26 @@ export function ApodImageAPI() {
       {/* end Light and dark mode section */}
 
       <div className="container m-auto block sm:flex">
-        <div className="flex flex-col items-center">
+        {<img src={apod?.hdurl} className="rounded-none" alt="APOD Img." /> || (
           <img
-            src={apod?.hdurl}
-            className="rounded-none sm:hidden"
-            alt="Astronomy picture of the day."
+            src={placeholderImage}
+            className="rounded-none m-auto object-none"
+            alt="wqd"
           />
-          <img
-            src={apod?.hdurl}
-            className="hidden rounded-none sm:block"
-            alt="APOD Img."
-          />
-        </div>
-
-        {/* <div className="flex justify-center sm:hidden">
-          <img src={apod?.hdurl} alt="Astonomy picture of the day." />
-        </div> */}
+        )}
 
         <hr className="m-4" />
         <div className="text-center block sm:text-left sm:flex sm:flex-col sm:justify-center">
           <div className="space-APOD-content">
-            <h2 className="text-2xl">{apod?.title}</h2>
+            <h2 className="text-2xl">
+              {apod?.title || `Our solar system ☀️🪐🌍🌕 `}
+            </h2>
             <p className="p-2 first-letter:text-blue-500 first-letter:font-cursive first-letter:font-bold first-letter:text-3xl">
-              {apod?.explanation}
+              {apod?.explanation ||
+                "In our solar system, there's a fascinating celestial object known as Saturn's moon Enceladus. Despite its small size, this icy moon has garnered significant attention due to its remarkable geysers erupting from its south pole. These geysers spew water vapor and icy particles into space, creating a striking plume that extends hundreds of kilometers above the moon's surface. This phenomenon indicates the presence of a subsurface ocean beneath Enceladus's icy crust, making it one of the most promising locations for potential extraterrestrial life within our solar system. The discovery of these geysers came from observations made by the Cassini spacecraft, which provided invaluable insights into the dynamic and potentially habitable environments of moons orbiting Saturn"}
             </p>
           </div>
-          <p className="m-4">{` @ Copyright ${
-            apod?.date || 'placeholder.'
-          }`}</p>
+          <p className="m-4">{` @ Copyright ${apod?.date || 'SS.'}`}</p>
         </div>
       </div>
     </>

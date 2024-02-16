@@ -1,10 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Item } from './planetProvider'
 import { usePlanet } from '../lib/usePlanet'
-import { ApodImageAPI } from './ApodImageAPI'
 
 export function SearchImageAPI() {
   const [inp, setInp] = useState<any>('')
@@ -146,7 +145,7 @@ export function SearchImageAPI() {
       <section className="flex justify-center sm:justify-start">
         <div className="hidden sm:flex sm:m-auto sm:justify-center">
           <input
-            className=" rounded sm:w-96 sm:m-3 sm:p-1"
+            className=" rounded md:w-80 lg:w-96 sm:m-3 sm:p-1"
             type="text"
             placeholder="Feeling spacy..."
             value={inp}
@@ -170,7 +169,7 @@ export function SearchImageAPI() {
           width="500"
           height="295"
           className="m-4"
-          src="https://www.youtube.com/embed/X40Re7j1WlI?si=VjSUrp1mgEysrg6W"
+          src="https://www.youtube.com/embed/_IkaetPoBZM?si=E2HSa_s5AqMQVjX2"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
@@ -179,7 +178,7 @@ export function SearchImageAPI() {
           width="500"
           height="295"
           className="rounded pause_first hidden sm:flex sm:m-4"
-          src="https://www.youtube.com/embed/AErpXJq67LM?si=AqYy35CCfH1ix_ys"
+          src="https://www.youtube.com/embed/5vjl6tdwmFA?si=rlEamOmZYS3Vts_t"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>

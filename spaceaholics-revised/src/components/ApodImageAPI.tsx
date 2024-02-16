@@ -80,7 +80,13 @@ export function ApodImageAPI() {
       {/* end Light and dark mode section */}
 
       <div className="container m-auto block sm:flex">
-        {<img src={apod?.hdurl} className="rounded-none" alt="APOD Img." /> || (
+        {(
+          <img
+            src={apod?.hdurl}
+            className="rounded-none object-contain md:object-fill"
+            alt="APOD Img."
+          />
+        ) || (
           <img
             src={placeholderImage}
             className="rounded-none m-auto object-none"

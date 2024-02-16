@@ -28,12 +28,15 @@ export function FavoritePlanets({
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
 
-  // state for Item object - only 1
-  const [storageState, setStorageState] = useState<Item>()
-
   // LS destructured
 
-  const { setStoredFavorite } = usePlanet()
+  const {
+    setStoredFavorite,
+    setImageContentStored,
+    imageContentStored,
+  } = usePlanet()
+
+  const [contentPlanet, setContentPlanet] = useState()
 
   // browser theme
   function handleToggle(e) {
@@ -170,8 +173,8 @@ export function FavoritePlanets({
 
   // when pencil icon clicked fire this function
 
-  function delFunctionPlanet(e) {
-    navigate('/')
+  function delFunctionPlanet(currIndex: number) {
+    setImageContentStored(planet[currIndex])
   }
 
   return (
@@ -225,8 +228,8 @@ export function FavoritePlanets({
       </div>
 
       <ul className="list-none flex flex-col  md:grid md:gap-0 md:grid-cols-2 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 sm:gap-4">
-        {planet.map((pl) => (
-          <li>
+        {planet.map((pl, index) => (
+          <li key={index}>
             <>
               <img src={pl.links[0]?.href} className="m-auto lg:rounded" />
               <div className=""></div>
@@ -236,7 +239,10 @@ export function FavoritePlanets({
                   <h2>{pl.data[0].date_created}</h2>
                   <span>
                     {planet.length !== 0 ? (
-                      <button className="text-2xl" onClick={delFunctionPlanet}>
+                      <button
+                        className="text-2xl pen"
+                        onClick={() => delFunctionPlanet(index)}
+                      >
                         <FaPencil />
                       </button>
                     ) : (

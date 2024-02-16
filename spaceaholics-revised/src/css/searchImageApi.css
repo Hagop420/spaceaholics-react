@@ -5,6 +5,9 @@
   .item-width {
     min-width: 1000px;
   }
+  img {
+    width: 700px !important;
+  }
 }
 
 .ex {

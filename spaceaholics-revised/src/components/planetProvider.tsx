@@ -35,7 +35,7 @@ export type Item = {
     description?: string
   }[]
   links: {
-    // href?: string
+    href?: string
   }[]
 }
 
@@ -43,12 +43,21 @@ type planetContextVal = {
   planetItem: Item[]
   setPlanetFavorite: (planetItem: Item) => void
   setStoredFavorite: () => void
+  setPlanetContent: () => void
+  setImageContentStored: (planetItem: Item) => void
+  imageContentStored: Item
 }
 
 export const planetContext = createContext<planetContextVal>({
   planetItem: [],
   setPlanetFavorite: () => undefined,
   setStoredFavorite: () => undefined,
+  setPlanetContent: () => undefined,
+  setImageContentStored: () => undefined,
+  imageContentStored: {
+    data: [],
+    links: [],
+  },
 })
 
 export const PlanetProvider = planetContext.Provider

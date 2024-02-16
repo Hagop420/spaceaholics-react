@@ -6,26 +6,41 @@ import { Item } from './planetProvider'
 import { usePlanet } from '../lib/usePlanet'
 
 export function SearchImageAPI() {
+  // input state search for any nasa stuff
   const [inp, setInp] = useState<any>('')
+
+  // href API apod image state
 
   const [hrefImg, setHrefImg] = useState()
 
+  // data content API state
+
   const [dataApi, setDataApi] = useState<any>([])
+
+  // input is blank or not state
 
   const [isI, setIsI] = useState(true)
 
+  // API convert to json state
+
   const [inputApi, setInputApi] = useState<Response>()
+
+  // input blank state
 
   const [inpReq, setInpReq] = useState<string>('')
 
+  // content state random from API
   const [displayedContent, setDisplayedContent] = useState<Item>()
 
-  const { setPlanetFavorite } = usePlanet()
+  // LS from usePlanet hook
+
+  const { setPlanetFavorite, imageContentStored } = usePlanet()
 
   // video pausing
 
   const navigate = useNavigate()
 
+  // iframe pause useEffect
   useEffect(() => {
     function framesChange() {
       const iframe = document.querySelector('.pause_first')
@@ -49,6 +64,8 @@ export function SearchImageAPI() {
     }
   }, [])
 
+  // input field keydown change validation function
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInp(e.target.value)
     const inputSearchTargetCheck = e.target.value
@@ -67,11 +84,8 @@ export function SearchImageAPI() {
     setInpReq('')
   }
 
-  // LS end
-
-  // input search function
-
-  async function handleInputChange() {
+  // fetching my APOD search input API
+  async function handleInputChange(index) {
     try {
       const getApodCurrImg = await fetch(
         `https://images-api.nasa.gov/search?q=${inp}`,
@@ -101,10 +115,18 @@ export function SearchImageAPI() {
         if (dataCol[i]?.keywords === undefined) {
           break
         } else if (dataCol[i]?.keywords) {
+          // const regexTags = /<[^>]*>/g // Match any HTML tags
+          // const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
+          // let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
+          // result = result.replace(regexEntities, '') // Remove HTML entities
+          // dataCol[i].description = result
           const regexTags = /<[^>]*>/g // Match any HTML tags
           const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
+          const regexHref = /href\s*=\s*["'][^"']*["']/g // Match href attributes
+
           let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
           result = result.replace(regexEntities, '') // Remove HTML entities
+          result = result.replace(regexHref, '')
           dataCol[i].description = result
           console.log(result)
         }
@@ -123,21 +145,16 @@ export function SearchImageAPI() {
     }
   }
 
-  // console.log(displayedContent)
+  useEffect(() => {
+    setHrefImg(hrefImg)
+    setDataApi(dataApi)
+  }, [])
 
+  // putting the data in my LS when star is clicked
   function stored() {
     if (displayedContent === undefined) return
-
     setPlanetFavorite(displayedContent)
-
-    navigate('/favoritePlanets')
-
-    useEffect(() => {
-      setHrefImg(hrefImg)
-      setDataApi(dataApi)
-    }, [])
-
-    // LS end
+    // navigate('/favoritePlanets')
   }
 
   return (

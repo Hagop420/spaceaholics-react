@@ -93,19 +93,19 @@ export function SearchImageAPI() {
 
       const jsonConverted = await getApodCurrImg.json()
       setInputApi(jsonConverted)
-      console.log(jsonConverted?.collection)
+      // console.log(jsonConverted?.collection)
 
-      console.log(jsonConverted.collection)
+      // console.log(jsonConverted.collection)
 
       const randomNumber = Math.floor(
         Math.random() * jsonConverted?.collection.items.length,
       )
 
-      console.log(randomNumber)
+      // console.log(randomNumber)
 
       const apodImgCol =
         jsonConverted?.collection.items[randomNumber].links[0].href
-      console.log(apodImgCol)
+      // console.log(apodImgCol)
 
       setHrefImg(apodImgCol)
       setDisplayedContent(jsonConverted?.collection.items[randomNumber])
@@ -128,7 +128,7 @@ export function SearchImageAPI() {
           result = result.replace(regexEntities, '') // Remove HTML entities
           result = result.replace(regexHref, '')
           dataCol[i].description = result
-          console.log(result)
+          // console.log(result)
         }
       }
       setDataApi(dataCol)
@@ -154,7 +154,7 @@ export function SearchImageAPI() {
   function stored() {
     if (displayedContent === undefined) return
     setPlanetFavorite(displayedContent)
-    // navigate('/favoritePlanets')
+    navigate('/favoritePlanets')
   }
 
   return (
@@ -223,27 +223,16 @@ export function SearchImageAPI() {
         {hrefImg && (
           <img src={hrefImg} className="zoomable rounded-none" alt="" />
         )}
-        {/* <div className="block">
-          <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
-        </div> */}
 
-        <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-7 content-width">
-          <h1 className="text-2xl font-bold flex">
+        <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-1 content-width">
+          <span className="text-2xl font-bold flex">
             <h1>{dataApi[0]?.title}</h1>
-            {/* <span className="invisible">l</span>
-            `${<span class=invisible>ewd</span}`
-            {dataApi[0]?.keywords[1] ? (
-              <h1>
-                -<span className="invisible">l</span>
-                {dataApi[0]?.keywords[2]}
-              </h1>
-            ) : ( */}
-            {/* )} */}
-          </h1>
+          </span>
           {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
-            <h1>No description available</h1>
+            <span>No description available</span>
           ) : (
-            <h2>{dataApi[0]?.description}</h2>
+            <span>{dataApi[0]?.description}</span>
+            // <span>ferwtfgre</span>
           )}
         </div>
       </div>
@@ -254,12 +243,12 @@ export function SearchImageAPI() {
           <span className="invisible">l</span>
           {/* `${<span class=invisible>ewd</span}` */}
           {dataApi[0]?.title ? (
-            <h1>
-              <span className="invisible">l</span>
+            <span>
+              <h1 className="invisible">l</h1>
               {/* {dataApi[0]?.center} */}
-            </h1>
+            </span>
           ) : (
-            <h1>{dataApi[0]?.date_created}</h1>
+            <p>{dataApi[0]?.date_created}</p>
           )}
         </h1>
         <div className="block font-bold">
@@ -267,14 +256,14 @@ export function SearchImageAPI() {
             <h1>Date Taken: {dataApi[0]?.date_created}</h1>
           ) : (
             // <h2>dataApi</h2>
-            <h2>{dataApi[0]?.description}</h2>
+            <span>{dataApi[0]?.description}</span>
           )}
         </div>
         {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
           <h1>No description available</h1>
         ) : (
           // <h2>dataApi</h2>
-          <h2>{dataApi[0]?.description}</h2>
+          <span>{dataApi[0]?.description}</span>
         )}
 
         <div className="text-3xl hover:text-yellow-300">

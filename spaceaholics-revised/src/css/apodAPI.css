@@ -5,15 +5,10 @@ img {
 @media (min-width: 640px) {
   img {
     height: 400px !important;
-    width: 200%;
     object-fit: cover;
   }
 
   .space-APOD-content {
-    min-width: 550px;
-  }
-
-  .bigApiImg {
-    width: 150% !important;
+    min-width: 210px;
   }
 }

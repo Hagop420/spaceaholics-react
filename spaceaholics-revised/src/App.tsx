@@ -46,7 +46,8 @@ function App() {
     setStoredFavorite: storedContents,
     setImageContentStored: setImageContentStored,
     imageContentStored: imageContentStored,
-  }
+    
+    }
   return (
     
     <PlanetProvider value={contextValuePlanet}>

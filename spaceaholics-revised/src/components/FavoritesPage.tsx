@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
 import BH_IMAGE from '../images/black-hole-image.png'
+import LightGallery from 'lightgallery/react'
+import lgZoom from 'lightgallery/plugins/zoom'
+import lgVideo from 'lightgallery/plugins/video'
 import '../css/favorites.css'
 
 //planet array type []
@@ -52,6 +55,11 @@ export function FavoritePlanets({
     const localTheme = localStorage.getItem('theme') ?? 'lofi'
     document.querySelector('html')?.setAttribute('data-theme', localTheme)
   }, [theme])
+
+  // get my local storage items
+  useEffect(() => {
+    setStoredFavorite()
+  }, [])
 
   if (planet.length === 0) {
     return (
@@ -166,11 +174,6 @@ export function FavoritePlanets({
     )
   }
 
-  // get my local storage items
-  useEffect(() => {
-    setStoredFavorite()
-  }, [])
-
   // when pencil icon clicked fire this function
 
   function delFunctionPlanet(currIndex: number) {
@@ -231,7 +234,22 @@ export function FavoritePlanets({
         {planet.map((pl, index) => (
           <li key={index}>
             <>
-              <img src={pl.links[0]?.href} className="m-auto lg:rounded" />
+              <LightGallery plugins={[lgZoom, lgVideo]} mode="lg-fade">
+                <a
+                  data-lg-size="1406-1390"
+                  className="gallery-item rounded-none"
+                  data-src={pl.links[0]?.href} // Set data-src to the href value
+                  href={pl.links[0]?.href} // Set href to the href value
+                  data-sub-html={`<h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${pl.data[0]?.title} <br> <p className='m-5 text-4xl'><strong>Description:</strong> ${pl.data[0]?.description}</p>  </a></h2>`}
+                >
+                  <img
+                    className="img-responsive rounded-none m-auto"
+                    src={pl.links[0]?.href}
+                  />
+                </a>
+              </LightGallery>
+
+              {/* <img src={pl.links[0]?.href} className="m-auto lg:rounded" /> */}
               <div className=""></div>
               <div className="flex flex-col items-center">
                 <div className="divWrap text-center">

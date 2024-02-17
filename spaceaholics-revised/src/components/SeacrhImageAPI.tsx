@@ -3,6 +3,9 @@ import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { Item } from './planetProvider'
+import LightGallery from 'lightgallery/react'
+import lgZoom from 'lightgallery/plugins/zoom'
+import lgVideo from 'lightgallery/plugins/video'
 import { usePlanet } from '../lib/usePlanet'
 
 export function SearchImageAPI() {
@@ -221,7 +224,32 @@ export function SearchImageAPI() {
 
       <div className="m-auto flex justify-center">
         {hrefImg && (
-          <img src={hrefImg} className="zoomable rounded-none" alt="" />
+          // <img src={hrefImg} className="zoomable rounded-none" alt="" />
+          <LightGallery>
+            <a
+              data-lg-size="1406-1390"
+              className="gallery-item"
+              data-src={hrefImg} // Set data-src to the href value
+              href={hrefImg} // Set href to the href value
+              data-sub-html={`<div className='relative top-48'>
+                  <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${
+                    dataApi[0]?.title
+                  } <br> <p className=' text-4xl'><strong>Description:</strong> ${
+                dataApi[0]?.description
+              }</p>  </a>
+                  <strong>Keywords:</strong> ${
+                    dataApi[0]?.keywords?.join(' ') || 'N/A'
+                  }</p>
+                  <strong>Center:</strong> ${dataApi[0]?.center}</p>
+                  <strong>Id:</strong> ${dataApi[0]?.nasa_id}</p></h2></div>`}
+            >
+              {/* <img
+                className="img-responsive rounded-none m-auto md:w-96"
+                src={hrefImg}
+              /> */}
+              <img src={hrefImg} className="rounded-none imgSearch" alt="" />
+            </a>
+          </LightGallery>
         )}
 
         <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-1 content-width">

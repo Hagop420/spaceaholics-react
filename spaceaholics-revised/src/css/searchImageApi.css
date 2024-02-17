@@ -6,7 +6,11 @@
     min-width: 1000px;
   }
   img {
-    width: 400px !important;
+    /* width: 400px !important; */
+  }
+
+  .imgSearch {
+    min-width: 600px;
   }
 }
 

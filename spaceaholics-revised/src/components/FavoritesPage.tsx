@@ -174,10 +174,12 @@ export function FavoritePlanets({
     )
   }
 
+  console.log(setImageContentStored)
   // when pencil icon clicked fire this function
 
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
+    navigate('/')
   }
 
   return (
@@ -230,27 +232,36 @@ export function FavoritePlanets({
         <h1 className="text-3xl">Favorite Planets</h1>
       </div>
 
-      <ul className="list-none flex flex-col  md:grid md:gap-0 md:grid-cols-2 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 sm:gap-4">
+      <ul className="list-none flex flex-col md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2">
         {planet.map((pl, index) => (
           <li key={index}>
             <>
               <LightGallery plugins={[lgZoom, lgVideo]} mode="lg-fade">
                 <a
                   data-lg-size="1406-1390"
-                  className="gallery-item rounded-none"
+                  className="gallery-item"
                   data-src={pl.links[0]?.href} // Set data-src to the href value
                   href={pl.links[0]?.href} // Set href to the href value
-                  data-sub-html={`<h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${pl.data[0]?.title} <br> <p className='m-5 text-4xl'><strong>Description:</strong> ${pl.data[0]?.description}</p>  </a></h2>`}
+                  data-sub-html={`
+                  <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${
+                    pl.data[0]?.title
+                  } <br> <p className=' text-4xl'><strong>Description:</strong> ${
+                    pl.data[0]?.description
+                  }</p>  </a>
+                  <strong>Keywords:</strong> ${
+                    pl.data[0]?.keywords?.join(' ') || 'N/A'
+                  }</p>
+                  <strong>Center:</strong> ${pl.data[0]?.center}</p>
+                  <strong>Id:</strong> ${pl.data[0]?.nasa_id}</p></h2>`}
                 >
                   <img
-                    className="img-responsive rounded-none m-auto"
+                    className="img-responsive rounded-none m-ato "
                     src={pl.links[0]?.href}
                   />
                 </a>
               </LightGallery>
 
               {/* <img src={pl.links[0]?.href} className="m-auto lg:rounded" /> */}
-              <div className=""></div>
               <div className="flex flex-col items-center">
                 <div className="divWrap text-center">
                   <h2>{pl.data[0].title}</h2>

@@ -249,7 +249,7 @@ export function FavoritePlanets({
                     pl.data[0]?.description
                   }</p>  </a>
                   <strong>Keywords:</strong> ${
-                    pl.data[0]?.keywords?.join(' ') || 'N/A'
+                    pl.data[0]?.keywords?.join(', ') || 'N/A'
                   }</p>
                   <strong>Center:</strong> ${pl.data[0]?.center}</p>
                   <strong>Id:</strong> ${pl.data[0]?.nasa_id}</p></h2>`}

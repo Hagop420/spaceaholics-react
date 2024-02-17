@@ -162,10 +162,10 @@ export function SearchImageAPI() {
 
   return (
     <>
-      <section className="flex justify-center sm:justify-start">
-        <div className="hidden sm:flex sm:m-auto sm:justify-center">
+      <section className="flex justify-center md:justify-start container">
+        <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
           <input
-            className=" rounded md:w-80 lg:w-96 sm:m-3 sm:p-1"
+            className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96"
             type="text"
             placeholder="Feeling spacy..."
             value={inp}
@@ -188,7 +188,7 @@ export function SearchImageAPI() {
         <iframe
           width="500"
           height="295"
-          className="m-4"
+          className="m-4 lg:w-96"
           src="https://www.youtube.com/embed/_IkaetPoBZM?si=E2HSa_s5AqMQVjX2"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -197,7 +197,7 @@ export function SearchImageAPI() {
         <iframe
           width="500"
           height="295"
-          className="rounded pause_first hidden sm:flex sm:m-4"
+          className="rounded pause_first hidden sm:hidden sm:m-4 lg:flex lg:w-96"
           src="https://www.youtube.com/embed/5vjl6tdwmFA?si=rlEamOmZYS3Vts_t"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -231,14 +231,14 @@ export function SearchImageAPI() {
               className="gallery-item"
               data-src={hrefImg} // Set data-src to the href value
               href={hrefImg} // Set href to the href value
-              data-sub-html={`<div className='relative top-48'>
+              data-sub-html={`<div className='relative bottom-48'>
                   <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${
                     dataApi[0]?.title
                   } <br> <p className=' text-4xl'><strong>Description:</strong> ${
                 dataApi[0]?.description
               }</p>  </a>
                   <strong>Keywords:</strong> ${
-                    dataApi[0]?.keywords?.join(' ') || 'N/A'
+                    dataApi[0]?.keywords?.join(', ') || 'N/A'
                   }</p>
                   <strong>Center:</strong> ${dataApi[0]?.center}</p>
                   <strong>Id:</strong> ${dataApi[0]?.nasa_id}</p></h2></div>`}

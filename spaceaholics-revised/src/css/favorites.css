@@ -13,4 +13,7 @@
     height: 500px;
     object-fit: cover;
   }
+  nav {
+    width: 150vw;
+  }
 }

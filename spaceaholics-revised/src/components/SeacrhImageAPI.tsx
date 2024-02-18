@@ -224,9 +224,8 @@ export function SearchImageAPI() {
         <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
       </div>
 
-      <div className="m-auto flex justify-center">
+      <div className="m-auto sm:flex sm:flex-col lg:flex lg:flex-row justify-center">
         {hrefImg && (
-          // <img src={hrefImg} className="zoomable rounded-none" alt="" />
           <LightGallery
             plugins={[lgThumbnail, lgHash, lgPager, lgRotate, lgShare]}
           >
@@ -260,22 +259,21 @@ export function SearchImageAPI() {
             >
               <img
                 src={hrefImg}
-                className="rounded-none md:object-cover imgSearch"
+                className="rounded-none md:object-cover m-auto imgSearch"
                 alt=""
               />
             </a>
           </LightGallery>
         )}
 
-        <div className="hidden item-width sm:flex sm:flex-col sm:justify-start sm:m-auto sm:p-1 content-width">
-          <span className="text-2xl font-bold flex">
+        <div className="hidden item-width sm:flex sm:flex-col sm:items-center sm:text-center lg:text-left sm:justify-start sm:m-auto lg:items-start content-width">
+          <span className="text-2xl font-bold">
             <h1>{dataApi[0]?.title}</h1>
           </span>
           {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
             <span>No description available</span>
           ) : (
             <span>{dataApi[0]?.description}</span>
-            // <span>ferwtfgre</span>
           )}
         </div>
       </div>

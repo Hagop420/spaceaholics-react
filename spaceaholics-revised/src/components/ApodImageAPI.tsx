@@ -83,7 +83,7 @@ export function ApodImageAPI() {
         {(
           <img
             src={apod?.hdurl}
-            className="rounded-none m-auto w-96 sm:w-auto imageAPOD"
+            className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
             alt="APOD Img."
           />
         ) || (

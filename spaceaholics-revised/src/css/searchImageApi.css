@@ -19,6 +19,11 @@
   padding: 1px 5px;
 }
 
+.lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
+  position: relative;
+  bottom: 15px;
+}
+
 @media (min-width: 768px) {
   .lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
     opacity: 1;
@@ -26,4 +31,15 @@
     position: relative;
     bottom: 40px;
   }
+}
+
+[data-theme='lofi'] .search-icon {
+  color: #fff !important;
+}
+[data-theme='lofi'] .BL {
+  background: #000;
+}
+[data-theme='lofi'] .BL:hover {
+  opacity: 0.8;
+  background-color: black;
 }

@@ -174,13 +174,10 @@ export function SearchImageAPI() {
 
           <div className="flex flex-col justify-center items-start">
             <button
-              className="bg-blue-500 rounded p-2 ml-3"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
               onClick={handleInputChange}
             >
-              <FaSearch
-                className="search-icon hover:cursor-pointer"
-                color="black"
-              />
+              <FaSearch className="search-icon" color="black" />
             </button>
           </div>
         </div>
@@ -214,7 +211,7 @@ export function SearchImageAPI() {
         />
 
         <button
-          className="bg-blue-500 rounded ml-3 p-2"
+          className="bg-blue-500 hover:bg-blue-700 text-white BL font-bold py-2 px-4 rounded transition-colors duration-300 ml-3 p-2"
           onClick={handleInputChange}
         >
           <FaSearch className="search-icon" color="black" />

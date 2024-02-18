@@ -4,8 +4,11 @@ import { FaSearch, FaStar } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { Item } from './planetProvider'
 import LightGallery from 'lightgallery/react'
-import lgZoom from 'lightgallery/plugins/zoom'
-import lgVideo from 'lightgallery/plugins/video'
+import lgThumbnail from 'lightgallery/plugins/thumbnail'
+import lgHash from 'lightgallery/plugins/hash'
+import lgPager from 'lightgallery/plugins/pager'
+import lgRotate from 'lightgallery/plugins/rotate'
+import lgShare from 'lightgallery/plugins/share'
 import { usePlanet } from '../lib/usePlanet'
 
 export function SearchImageAPI() {
@@ -55,7 +58,7 @@ export function SearchImageAPI() {
     }
 
     function handleResize() {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1024) {
         framesChange()
       }
     }
@@ -73,7 +76,6 @@ export function SearchImageAPI() {
     setInp(e.target.value)
     const inputSearchTargetCheck = e.target.value
     const regexInp = /^\s*$/
-    const inp = document.querySelector('.inpMobile')
 
     if (inputSearchTargetCheck === '') {
       setInpReq('⛔')
@@ -144,6 +146,7 @@ export function SearchImageAPI() {
         alert('Input field is a required field')
         return
       }
+
       alert('Input value invalid')
     }
   }
@@ -162,10 +165,10 @@ export function SearchImageAPI() {
 
   return (
     <>
-      <section className="flex justify-center md:justify-start container">
+      <section className="flex justify-center sm:m-10 md:justify-start container">
         <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
           <input
-            className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96"
+            className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
             type="text"
             placeholder="Feeling spacy..."
             value={inp}
@@ -189,6 +192,7 @@ export function SearchImageAPI() {
           src="https://www.youtube.com/embed/_IkaetPoBZM?si=E2HSa_s5AqMQVjX2"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         ></iframe>
 
         <iframe
@@ -198,12 +202,13 @@ export function SearchImageAPI() {
           src="https://www.youtube.com/embed/5vjl6tdwmFA?si=rlEamOmZYS3Vts_t"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         ></iframe>
       </section>
 
       <div className="flex justify-center sm:hidden">
         <input
-          className="form-control w-60 rounded inpMobile"
+          className="form-control w-60 rounded inpMobile lofiInput"
           type="text"
           value={inp}
           placeholder="Feeling spacy..."
@@ -222,7 +227,9 @@ export function SearchImageAPI() {
       <div className="m-auto flex justify-center">
         {hrefImg && (
           // <img src={hrefImg} className="zoomable rounded-none" alt="" />
-          <LightGallery>
+          <LightGallery
+            plugins={[lgThumbnail, lgHash, lgPager, lgRotate, lgShare]}
+          >
             <a
               data-lg-size="1406-1390"
               className="gallery-item"
@@ -251,11 +258,11 @@ export function SearchImageAPI() {
                   
                   </div>`}
             >
-              {/* <img
-                className="img-responsive rounded-none m-auto md:w-96"
+              <img
                 src={hrefImg}
-              /> */}
-              <img src={hrefImg} className="rounded-none imgSearch" alt="" />
+                className="rounded-none md:object-cover imgSearch"
+                alt=""
+              />
             </a>
           </LightGallery>
         )}

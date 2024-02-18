@@ -1,6 +1,25 @@
+/* @import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css'); */
+
 @import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css');
 @import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css');
 @import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-thumbnail.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-autoplay.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-fullsize.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-hash.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-pager.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-rotate.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-share.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-thumbnail-zoom.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom-rotate.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom-from-origin.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-touch.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-pull-caption.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-font.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-thumbnail-hash.css');
+
 @media (min-width: 768px) {
   img {
     border-radius: 50%;
@@ -12,8 +31,5 @@
     border-radius: 50%;
     height: 500px;
     object-fit: cover;
-  }
-  nav {
-    width: 150vw;
   }
 }

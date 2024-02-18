@@ -96,7 +96,7 @@ export function SearchImageAPI() {
 
       const jsonConverted = await getApodCurrImg.json()
       setInputApi(jsonConverted)
-      // console.log(jsonConverted?.collection)
+      console.log(jsonConverted?.collection)
 
       // console.log(jsonConverted.collection)
 
@@ -174,7 +174,7 @@ export function SearchImageAPI() {
 
           <div className="flex flex-col justify-center items-start">
             <button
-              className="bg-blue-500 rounded p-2"
+              className="bg-blue-500 rounded p-2 ml-3"
               onClick={handleInputChange}
             >
               <FaSearch
@@ -231,17 +231,28 @@ export function SearchImageAPI() {
               className="gallery-item"
               data-src={hrefImg} // Set data-src to the href value
               href={hrefImg} // Set href to the href value
-              data-sub-html={`<div className='relative bottom-48'>
-                  <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' >Title: ${
+              data-sub-html={`<div className='galleryContents'>
+                  <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' ><strong>Title</strong>: ${
                     dataApi[0]?.title
-                  } <br> <p className=' text-4xl'><strong>Description:</strong> ${
+                  } <br> <div className='para'><p className=' text-4xl'><strong>Description:</strong> ${
                 dataApi[0]?.description
-              }</p>  </a>
+              }</p>  </a></div>
+              <strong>Center:</strong> ${dataApi[0]?.center}</p>
+              <br>
                   <strong>Keywords:</strong> ${
-                    dataApi[0]?.keywords?.join(', ') || 'N/A'
-                  }</p>
-                  <strong>Center:</strong> ${dataApi[0]?.center}</p>
-                  <strong>Id:</strong> ${dataApi[0]?.nasa_id}</p></h2></div>`}
+                    dataApi[0]?.keywords?.join(', ') || 'No Keywords'
+                  }</p><br>
+                  <strong>Id:</strong> ${dataApi[0]?.nasa_id}</p><br>
+                  <strong>Created on:</strong>
+                  <span>${dataApi[0]?.date_created || 'No date'}</span>
+                  <br>
+                  <strong>Photo credit:</strong>
+                  <span>${dataApi[0]?.secondary_creator || 'No creator'}</span>
+                  
+                  </h2>
+                  
+                  
+                  </div>`}
             >
               {/* <img
                 className="img-responsive rounded-none m-auto md:w-96"

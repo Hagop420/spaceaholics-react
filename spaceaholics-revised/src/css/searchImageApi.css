@@ -18,3 +18,12 @@
   border-radius: 50%;
   padding: 1px 5px;
 }
+
+@media (min-width: 768px) {
+  .lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
+    opacity: 1;
+    transition: opacity 0.2s ease-out 0.15s;
+    position: relative;
+    bottom: 40px;
+  }
+}

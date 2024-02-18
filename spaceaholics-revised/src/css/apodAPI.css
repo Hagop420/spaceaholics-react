@@ -8,11 +8,11 @@ img {
     object-fit: cover;
   }
   .imageAPOD {
-    min-width: 50%;
+    /* min-width: 50%; */
   }
 
   .space-APOD-content {
-    min-width: 210px;
+    /* min-width: 210px; */
   }
 }
 
@@ -28,6 +28,18 @@ img {
   .lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
     margin: 20px !important;
     /* min-width: 1000px; */
+  }
+  .para {
+    display: none !important;
+  }
+
+  .lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 20px;
   }
 }
 .lg-sub-html p {

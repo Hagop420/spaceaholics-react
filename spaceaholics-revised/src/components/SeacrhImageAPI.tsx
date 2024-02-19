@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Item } from './planetProvider'
+import { Item, planetContext } from './planetProvider'
 import LightGallery from 'lightgallery/react'
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgHash from 'lightgallery/plugins/hash'
@@ -17,7 +17,7 @@ export function SearchImageAPI() {
 
   // href API apod image state
 
-  const [hrefImg, setHrefImg] = useState()
+  const [hrefImg, setHrefImg] = useState<any>()
 
   const [populate, setPopulate] = useState<Item>()
 
@@ -92,9 +92,8 @@ export function SearchImageAPI() {
     setInpReq('')
   }
 
-
   // fetching my APOD search input API
-  async function handleInputChange(planetIndex: number) {
+  async function handleInputChange() {
     try {
       const getApodCurrImg = await fetch(
         `https://images-api.nasa.gov/search?q=${inp}`,
@@ -102,7 +101,7 @@ export function SearchImageAPI() {
 
       const jsonConverted = await getApodCurrImg.json()
       setInputApi(jsonConverted)
-      console.log(jsonConverted?.collection)
+      // console.log(jsonConverted?.collection)
 
       // console.log(jsonConverted.collection)
 
@@ -123,12 +122,7 @@ export function SearchImageAPI() {
       for (let i = 0; i < dataCol.length; i++) {
         if (dataCol[i]?.keywords === undefined) {
           break
-        } else if (dataCol[i]?.keywords) {
-          // const regexTags = /<[^>]*>/g // Match any HTML tags
-          // const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
-          // let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
-          // result = result.replace(regexEntities, '') // Remove HTML entities
-          // dataCol[i].description = result
+        } else if (dataCol[i]) {
           const regexTags = /<[^>]*>/g // Match any HTML tags
           const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
           const regexHref = /href\s*=\s*["'][^"']*["']/g // Match href attributes
@@ -155,24 +149,25 @@ export function SearchImageAPI() {
     }
   }
 
-  const { planetIndex } = useParams()
-
-
-  useEffect(() => {
-    // setHrefImg(hrefImg)
-    // setDataApi(dataApi)
-
-  //  async function setterPlanets(planetIndex: Item){
-  //    const planetsGetter = await setPlanetFavorite(planetIndex)
-  //    setPopulate(planetsGetter)
-  //  }
-  // }, [])
   useEffect(() => {
     setHrefImg(hrefImg)
     setDataApi(dataApi)
-
- 
   }, [])
+
+  useEffect(() => {
+    if (imageContentStored) {
+      setHrefImg(imageContentStored.links[0]?.href)
+      setDataApi(imageContentStored.data[0].center)
+      // console.log(imageContentStored)
+      s()
+    }
+  }, [imageContentStored])
+
+  function s() {
+    return <h1>bjkbj</h1>
+  }
+
+  //  effect for the planet clicked to update the jsx
 
   // putting the data in my LS when star is clicked
   function stored() {

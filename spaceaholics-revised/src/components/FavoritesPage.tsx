@@ -44,7 +44,7 @@ export function FavoritePlanets({
     imageContentStored,
   } = usePlanet()
 
-  const [contentPlanet, setContentPlanet] = useState()
+  const [contentPlanet, setContentPlanet] = useState<Item>()
 
   // browser theme
   function handleToggle(e) {
@@ -179,12 +179,13 @@ export function FavoritePlanets({
     )
   }
 
-  console.log(setImageContentStored)
+  // console.log(setImageContentStored)
   // when pencil icon clicked fire this function
 
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
-    navigate(`/${currIndex}`)
+    setContentPlanet(imageContentStored)
+    navigate(`/`)
   }
 
   return (

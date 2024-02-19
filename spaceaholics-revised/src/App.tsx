@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import './App.css'
 import { HomePageWrap } from './components/HomePageWrap'
 import { FavoritePlanets } from './components/FavoritesPage'
@@ -34,6 +34,10 @@ function App() {
       const getStored = localStorage.getItem('Planet_information')
       setPlanetItems(JSON.parse(getStored))
   }
+
+  // function allPlanetContents(index: SetStateAction<Item[]>) {
+  //   setPlanetItems(index)
+  // }
   
  
 
@@ -45,8 +49,8 @@ function App() {
     setPlanetFavorite: setItemFavoritePlanet,
     setStoredFavorite: storedContents,
     setImageContentStored: setImageContentStored,
+    // setPlanetContent: allPlanetContents,
     imageContentStored: imageContentStored,
-    
     }
   return (
     

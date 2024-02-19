@@ -171,8 +171,8 @@ export function FavoritePlanets({
             src="https://www.youtube.com/embed/beW6KCQ90Qc?si=9lNwG1TdtTzPJt-B"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen=""
-            class="ifNan"
+            allowFullScreen
+            className="ifNan"
           ></iframe>
         </div>
       </>
@@ -184,7 +184,7 @@ export function FavoritePlanets({
 
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
-    navigate('/')
+    navigate(`/${currIndex}`)
   }
 
   return (

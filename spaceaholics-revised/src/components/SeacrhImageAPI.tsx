@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import { FaSearch, FaStar } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Item } from './planetProvider'
 import LightGallery from 'lightgallery/react'
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
@@ -18,6 +18,8 @@ export function SearchImageAPI() {
   // href API apod image state
 
   const [hrefImg, setHrefImg] = useState()
+
+  const [populate, setPopulate] = useState<Item>()
 
   // data content API state
 
@@ -40,8 +42,9 @@ export function SearchImageAPI() {
 
   // LS from usePlanet hook
 
-  const { setPlanetFavorite, imageContentStored } = usePlanet()
+  // const { setPlanetFavorite, imageContentStored } = usePlanet()
 
+  const { setPlanetFavorite, imageContentStored } = usePlanet()
   // video pausing
 
   const navigate = useNavigate()
@@ -89,8 +92,9 @@ export function SearchImageAPI() {
     setInpReq('')
   }
 
+
   // fetching my APOD search input API
-  async function handleInputChange(index) {
+  async function handleInputChange(planetIndex: number) {
     try {
       const getApodCurrImg = await fetch(
         `https://images-api.nasa.gov/search?q=${inp}`,
@@ -151,9 +155,23 @@ export function SearchImageAPI() {
     }
   }
 
+  const { planetIndex } = useParams()
+
+
+  useEffect(() => {
+    // setHrefImg(hrefImg)
+    // setDataApi(dataApi)
+
+  //  async function setterPlanets(planetIndex: Item){
+  //    const planetsGetter = await setPlanetFavorite(planetIndex)
+  //    setPopulate(planetsGetter)
+  //  }
+  // }, [])
   useEffect(() => {
     setHrefImg(hrefImg)
     setDataApi(dataApi)
+
+ 
   }, [])
 
   // putting the data in my LS when star is clicked

@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
+import BH_IMAGE from '../images/black-hole-image.png'
+import SUN_IMAGE from '../images/sun.png'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Item, planetContext } from './planetProvider'
@@ -19,7 +21,7 @@ export function SearchImageAPI() {
 
   const [hrefImg, setHrefImg] = useState<any>()
 
-  const [populate, setPopulate] = useState<Item>()
+  const [populateContent, setPopulateContent] = useState<any>()
 
   // data content API state
 
@@ -158,14 +160,9 @@ export function SearchImageAPI() {
     if (imageContentStored) {
       setHrefImg(imageContentStored.links[0]?.href)
       setDataApi(imageContentStored.data[0].center)
-      // console.log(imageContentStored)
-      s()
+      console.log(imageContentStored)
     }
   }, [imageContentStored])
-
-  function s() {
-    return <h1>bjkbj</h1>
-  }
 
   //  effect for the planet clicked to update the jsx
 
@@ -327,6 +324,16 @@ export function SearchImageAPI() {
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
         <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
+        <button onClick={stored}>{!hrefImg ? '' : ''}</button>
+
+        <button>
+          {imageContentStored && (
+            <div className="flex justify-between">
+              <img src={BH_IMAGE} />
+              <img src={SUN_IMAGE} />
+            </div>
+          )}
+        </button>
       </div>
     </>
   )

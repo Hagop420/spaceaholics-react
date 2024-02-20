@@ -20,6 +20,27 @@
   padding: 1px 5px;
 }
 
+.deskPlans {
+  height: 200px !important;
+  justify-content: space-between !important;
+}
+.hole_animation {
+  animation: black_hole_animation forwards infinite 1s ease-in-out;
+}
+.sun_animation {
+  animation: black_hole_animation forwards infinite 1s ease-in-out;
+}
+
+/* black_hole_for_desktop_animation */
+
+@keyframes black_hole_animation {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .lg-outer.lg-components-open:not(.lg-zoomed) .lg-sub-html {
   position: relative;
   bottom: 15px;
@@ -60,3 +81,36 @@
 [data-theme='lofi'] .BL:active {
   background: #1c1b1b;
 }
+
+/* black hole image modal open styling */
+
+.modal-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.openingModalClr {
+  overflow: hidden;
+  height: 160px;
+  width: 400px;
+  position: relative;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 1.3rem;
+}
+
+.modal-button {
+  border-radius: 5px;
+  height: 50px;
+  width: 120px;
+  border: none;
+  font-size: 1.3rem;
+}
+
+/* end modal open */

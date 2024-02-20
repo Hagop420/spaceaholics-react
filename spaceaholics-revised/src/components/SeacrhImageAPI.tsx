@@ -1,8 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import '../css/searchImageApi.css'
 import BH_IMAGE from '../images/black-hole-image.png'
 import SUN_IMAGE from '../images/sun.png'
-import { FaSearch, FaStar } from 'react-icons/fa'
+import { FaHotel, FaSearch, FaStar, FaTimes } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Item, planetContext } from './planetProvider'
 import LightGallery from 'lightgallery/react'
@@ -24,6 +24,10 @@ export function SearchImageAPI() {
   const [populateContent, setPopulateContent] = useState<any>()
 
   // data content API state
+
+  // audio modal state
+
+  const [audio, setAudio] = useState('')
 
   const [dataApi, setDataApi] = useState<any>([])
 
@@ -48,6 +52,10 @@ export function SearchImageAPI() {
 
   const { setPlanetFavorite, imageContentStored } = usePlanet()
   // video pausing
+
+  // state for modal
+
+  const [isOpen, setIsOpen] = useState(false)
 
   const navigate = useNavigate()
 
@@ -164,12 +172,48 @@ export function SearchImageAPI() {
     }
   }, [imageContentStored])
 
+  const audioCreation = new Audio()
   //  effect for the planet clicked to update the jsx
 
   // putting the data in my LS when star is clicked
   function stored() {
     if (displayedContent === undefined) return
     setPlanetFavorite(displayedContent)
+    navigate('/favoritePlanets')
+  }
+
+  // audio ref hook
+  const audioRef = useRef(new Audio())
+
+  const openModal = () => {
+    setIsOpen(true)
+    // Play audio when modal opens
+    // const audio = new Audio(
+    //   'https://dl.vgmdownloads.com/soundtracks/club-penguin-online-unofficial-soundtrack-online-windows-gamerip-2018/tltdklykwt/2-12.%20Pizza%20Parlor.mp3',
+    // )
+    // audio.play()
+
+    const audio = audioRef.current
+    audio.src =
+      'https://dl.vgmdownloads.com/soundtracks/club-penguin-original-soundtrack/vgxkhusmkl/07.%20Box%20Dimension.mp3'
+    audio.loop = true
+    audio.play()
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+    audioCreation.pause()
+    const audio = audioRef.current
+    audio.pause()
+
+    // play the click sound
+    const clickSoundEffect = new Audio(
+      'https://www.fesliyanstudios.com/play-mp3/387',
+    )
+    clickSoundEffect.play()
+  }
+
+  function planetFavoritesSwapped() {
     navigate('/favoritePlanets')
   }
 
@@ -319,22 +363,73 @@ export function SearchImageAPI() {
 
         <div className="text-3xl hover:text-yellow-300">
           <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
+
+          <button>
+            {imageContentStored && (
+              <div className="flex flex-col justify-between sm:hidden">
+                <img className="h-36 object-contain" src={BH_IMAGE} />
+                <img className="h-36" src={SUN_IMAGE} />
+              </div>
+            )}
+          </button>
         </div>
       </div>
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
         <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
-        <button onClick={stored}>{!hrefImg ? '' : ''}</button>
 
         <button>
           {imageContentStored && (
             <div className="flex justify-between">
-              <img src={BH_IMAGE} />
-              <img src={SUN_IMAGE} />
+              <img
+                className="object-contain hole_animation deskPlans"
+                src={BH_IMAGE}
+                onClick={openModal}
+              />
+              <img
+                className="object-contain sun_animation deskPlans"
+                src={SUN_IMAGE}
+                onClick={planetFavoritesSwapped}
+              />
             </div>
           )}
         </button>
       </div>
+      {isOpen && (
+        <div id="modalContainer" className="modal-container ">
+          <div className="flex-col items-center m-auto justify-center openingModalClr h-screen">
+            <div className="bg-white rounded p-10">
+              <div className="flex justify-end hover:opacity-75 hover:text-blue-950">
+                <button
+                  className="flex flex-col items-end float-right justify-end "
+                  onClick={closeModal}
+                >
+                  <FaTimes color="black" />
+                </button>
+              </div>
+              <div className="flex p-5">
+                <p className="text-black font-bold text-center">
+                  Are you sure you want to delete this awesome image?
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <button
+                  className="modal-button bg-red-600 transition-transform duration-300 ease-in-out hover:scale-110"
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="modal-button bg-green-600 transition-transform duration-300 ease-in-out hover:scale-110"
+                  onClick={closeModal}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

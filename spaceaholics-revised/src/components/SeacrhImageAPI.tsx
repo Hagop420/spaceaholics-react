@@ -12,6 +12,7 @@ import lgPager from 'lightgallery/plugins/pager'
 import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { usePlanet } from '../lib/usePlanet'
+import daisyui from 'daisyui'
 
 export function SearchImageAPI() {
   // input state search for any nasa stuff
@@ -72,6 +73,30 @@ export function SearchImageAPI() {
 
     function handleResize() {
       if (window.innerWidth < 1024) {
+        framesChange()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  // iframe pause useEffect
+  useEffect(() => {
+    function framesChange() {
+      const iframe = document.querySelector('.pause_final_frame')
+
+      if (iframe !== null) {
+        const temp = iframe.src
+        iframe.src = temp
+      }
+    }
+
+    function handleResize() {
+      if (window.innerWidth < 1280) {
         framesChange()
       }
     }
@@ -165,11 +190,11 @@ export function SearchImageAPI() {
   // }, [])
 
   useEffect(() => {
-    // if (imageContentStored) {
-    // setHrefImg(imageContentStored.links[0]?.href)
-    // setDataApi(imageContentStored.data[0])
-    // console.log(dataApi?.description)
-    // }
+    if (imageContentStored) {
+      setHrefImg(imageContentStored.links[0]?.href || imageContentStored?.url)
+      // setDataApi(imageContentStored?.data[0].title)
+      console.log(imageContentStored.data[0].title)
+    }
   }, [imageContentStored])
 
   const audioCreation = new Audio()
@@ -187,11 +212,6 @@ export function SearchImageAPI() {
 
   const openModal = () => {
     setIsOpen(true)
-    // Play audio when modal opens
-    // const audio = new Audio(
-    //   'https://dl.vgmdownloads.com/soundtracks/club-penguin-online-unofficial-soundtrack-online-windows-gamerip-2018/tltdklykwt/2-12.%20Pizza%20Parlor.mp3',
-    // )
-    // audio.play()
 
     const audio = audioRef.current
     audio.src =
@@ -215,15 +235,20 @@ export function SearchImageAPI() {
 
   function planetFavoritesSwapped() {
     navigate('/favoritePlanets')
+    // play the click sound
+    const clickSoundEffect = new Audio(
+      'https://www.fesliyanstudios.com/play-mp3/387',
+    )
+    clickSoundEffect.play()
   }
 
   return (
     <>
-      <section className="flex justify-center sm:m-10 md:justify-start container">
+      <section className="flex justify-center md:justify-start container">
         <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
           {!imageContentStored ? (
             <input
-              className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
               type="text"
               placeholder="Feeling spacy..."
               value={inp}
@@ -279,23 +304,48 @@ export function SearchImageAPI() {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
+
+        {imageContentStored && (
+          <iframe
+            width="500"
+            height="295"
+            className="rounded hidden pause_final_frame lg:hidden sm:m-4 lg:w-96 xl:flex"
+            src="https://www.youtube.com/embed/Ia39ekE_pLU?si=uEPsCsFSSZMAmA6c"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )}
       </section>
 
       <div className="flex justify-center sm:hidden">
-        <input
-          className="form-control w-60 rounded inpMobile lofiInput"
-          type="text"
-          value={inp}
-          placeholder="Feeling spacy..."
-          onChange={handleChange}
-        />
+        {!imageContentStored ? (
+          <input
+            className="form-control w-60 rounded inpMobile lofiInput"
+            type="text"
+            value={inp}
+            placeholder="Feeling spacy..."
+            onChange={handleChange}
+          />
+        ) : (
+          <input
+            className="hidden"
+            type="text"
+            value={inp}
+            placeholder="Feeling spacy..."
+            onChange={handleChange}
+          />
+        )}
 
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white BL font-bold py-2 px-4 rounded transition-colors duration-300 ml-3 p-2"
-          onClick={handleInputChange}
-        >
-          <FaSearch className="search-icon" color="black" />
-        </button>
+        {!imageContentStored && (
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white BL font-bold py-2 px-4 rounded transition-colors duration-300 ml-3 p-2"
+            onClick={handleInputChange}
+          >
+            <FaSearch className="search-icon" color="black" />
+          </button>
+        )}
+
         <div className={isI ? 'ml-3 text-2xl' : ''}>{inpReq}</div>
       </div>
 
@@ -356,7 +406,7 @@ export function SearchImageAPI() {
             {/* <h1>{dataApi[0]?.title}</h1> */}
           </span>
           {dataApi[0]?.description === undefined ? (
-            <h1>No description available</h1>
+            <h1></h1>
           ) : (
             <span>{dataApi[0]?.description}</span>
           )}
@@ -386,7 +436,7 @@ export function SearchImageAPI() {
           )}
         </div>
         {dataApi[0]?.description === undefined ? (
-          <h1>No description available</h1>
+          <h1></h1>
         ) : (
           <span>{dataApi[0]?.description}</span>
         )}
@@ -396,9 +446,17 @@ export function SearchImageAPI() {
 
           <button>
             {imageContentStored && (
-              <div className="flex flex-col justify-between sm:hidden">
-                <img className="h-36 object-contain" src={BH_IMAGE} />
-                <img className="h-36" src={SUN_IMAGE} />
+              <div className="flex flexx-col justify-between sm:hidden">
+                <img
+                  className="h-24 object-contain hole_animation"
+                  src={BH_IMAGE}
+                  onClick={openModal}
+                />
+                <img
+                  className="h-24 object-contain sun_animation"
+                  src={SUN_IMAGE}
+                  onClick={planetFavoritesSwapped}
+                />
               </div>
             )}
           </button>
@@ -410,9 +468,9 @@ export function SearchImageAPI() {
 
         <button>
           {imageContentStored && (
-            <div className="flex g">
+            <div className="flex md:gap-60">
               <img
-                className="object-contain hole_animation gap-5 deskPlans"
+                className="object-contain hole_animation deskPlans"
                 src={BH_IMAGE}
                 onClick={openModal}
               />

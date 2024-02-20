@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
-import BH_IMAGE from '../images/black-hole-image.png'
 import LightGallery from 'lightgallery/react'
 import lgZoom from 'lightgallery/plugins/zoom'
 import lgVideo from 'lightgallery/plugins/video'
@@ -185,6 +184,11 @@ export function FavoritePlanets({
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
     setContentPlanet(imageContentStored)
+    // play the click sound
+    const clickSoundEffect = new Audio(
+      'https://www.fesliyanstudios.com/play-mp3/387',
+    )
+    clickSoundEffect.play()
     navigate(`/`)
   }
 

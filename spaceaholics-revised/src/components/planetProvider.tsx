@@ -37,6 +37,7 @@ export type Item = {
   links: {
     href?: string
   }[]
+  url: string
 }
 
 type planetContextVal = {
@@ -56,6 +57,7 @@ export const planetContext = createContext<planetContextVal>({
   // setPlanetContent: () => undefined,
   imageContentStored: {
     data: [],
+    url: '',
     links: [],
   },
 })

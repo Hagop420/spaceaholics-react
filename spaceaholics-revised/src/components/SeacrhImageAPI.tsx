@@ -128,7 +128,7 @@ export function SearchImageAPI() {
       setHrefImg(apodImgCol)
       setDisplayedContent(jsonConverted?.collection.items[randomNumber])
       const dataCol = jsonConverted?.collection.items[randomNumber].data
-
+      console.log(dataCol)
       for (let i = 0; i < dataCol.length; i++) {
         if (dataCol[i]?.keywords === undefined) {
           break
@@ -221,22 +221,43 @@ export function SearchImageAPI() {
     <>
       <section className="flex justify-center sm:m-10 md:justify-start container">
         <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
-          <input
-            className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
-            type="text"
-            placeholder="Feeling spacy..."
-            value={inp}
-            onChange={handleChange}
-          />
+          {!imageContentStored ? (
+            <input
+              className=" rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              type="text"
+              placeholder="Feeling spacy..."
+              value={inp}
+              onChange={handleChange}
+            />
+          ) : (
+            <input
+              className=" hidden rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              type="text"
+              placeholder="Feeling spacy..."
+              value={inp}
+              onChange={handleChange}
+            />
+          )}
 
-          <div className="flex flex-col justify-center items-start">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
-              onClick={handleInputChange}
-            >
-              <FaSearch className="search-icon" color="black" />
-            </button>
-          </div>
+          {!imageContentStored ? (
+            <div className="flex flex-col justify-center items-start">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
+                onClick={handleInputChange}
+              >
+                <FaSearch className="search-icon" color="black" />
+              </button>
+            </div>
+          ) : (
+            <div className="hidden flex-col justify-center items-start">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
+                onClick={handleInputChange}
+              >
+                <FaSearch className="search-icon" color="black" />
+              </button>
+            </div>
+          )}
         </div>
 
         <iframe
@@ -332,12 +353,12 @@ export function SearchImageAPI() {
             </div>
           )}
           <span className="text-2xl font-bold">
-            <h1>{dataApi[0]?.title}</h1>
+            {/* <h1>{dataApi[0]?.title}</h1> */}
           </span>
-          {dataApi?.description === undefined ? (
-            <span>No description available</span>
+          {dataApi[0]?.description === undefined ? (
+            <h1>No description available</h1>
           ) : (
-            <span>{dataApi?.description}</span>
+            <span>{dataApi[0]?.description}</span>
           )}
         </div>
       </div>

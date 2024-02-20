@@ -10,6 +10,10 @@ export function ApodImageAPI() {
   //state for apod image response
   const [apod, setAPOD] = useState<Response>()
 
+  // API image days states
+
+  const [mediaType, setMediaType] = useState(null)
+
   // api key
   const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
@@ -36,9 +40,11 @@ export function ApodImageAPI() {
         const response = await fetch(
           `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
         )
-
+        console.log(response)
         const data = await response.json()
         setAPOD(data)
+        console.log(data)
+        console.log(apod?.hdurl)
       } catch (err) {
         console.log(err)
       }
@@ -46,6 +52,14 @@ export function ApodImageAPI() {
 
     apodFetchFunction()
   }, [])
+
+  // useEffect(() => {
+  //   if (apod) {
+  //     setIsImage(apod?.media_type === 'image')
+  //     setIsVideo(apod?.media_type === 'video')
+  //   }
+  // }, [apod])
+
   return (
     <>
       {/* Light and dark mode component rendering */}
@@ -80,19 +94,38 @@ export function ApodImageAPI() {
       {/* end Light and dark mode section */}
 
       <div className="container m-auto block md:flex">
-        {(
+        {/* medias testing */}
+
+        {apod?.url.includes('youtube') ? (
+          <iframe
+            title={apod?.url}
+            width="560"
+            height="315"
+            src={apod.url}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        ) : apod?.url.includes('youtube') === undefined ? (
+          <img
+            src="https://cdn.dribbble.com/users/17914/screenshots/4902225/media/0d6d47739dae97adc81ca7076ee56cc9.png?resize=400x300&vertical=center"
+            className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
+            alt="APOD video."
+          />
+        ) : apod?.hdurl === undefined ? (
+          <img
+            src={placeholderImage}
+            className="rounded-none md:h-screen md:object-contain m-auto w-96"
+            alt="Placeholder Image."
+          />
+        ) : (
           <img
             src={apod?.hdurl}
             className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
             alt="APOD Img."
           />
-        ) || (
-          <img
-            src={placeholderImage}
-            className="rounded-none m-auto object-none"
-            alt="Placeholder Image."
-          />
         )}
+
+        {/* media testing end */}
 
         <hr className="m-4" />
         <div className="text-center block sm:text-left sm:flex sm:flex-col sm:justify-center">

@@ -159,17 +159,17 @@ export function SearchImageAPI() {
     }
   }
 
-  useEffect(() => {
-    setHrefImg(hrefImg)
-    setDataApi(dataApi)
-  }, [])
+  // useEffect(() => {
+  //   setHrefImg(hrefImg)
+  //   setDataApi(dataApi)
+  // }, [])
 
   useEffect(() => {
-    if (imageContentStored) {
-      setHrefImg(imageContentStored.links[0]?.href)
-      setDataApi(imageContentStored.data[0].center)
-      console.log(imageContentStored)
-    }
+    // if (imageContentStored) {
+    // setHrefImg(imageContentStored.links[0]?.href)
+    // setDataApi(imageContentStored.data[0])
+    // console.log(dataApi?.description)
+    // }
   }, [imageContentStored])
 
   const audioCreation = new Audio()
@@ -324,10 +324,20 @@ export function SearchImageAPI() {
           <span className="text-2xl font-bold">
             <h1>{dataApi[0]?.title}</h1>
           </span>
-          {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
+          {dataApi?.title !== undefined ? (
+            <span>No title available</span>
+          ) : (
+            <div className="text-2xl font-bold">
+              <span>{dataApi?.title}</span>
+            </div>
+          )}
+          <span className="text-2xl font-bold">
+            <h1>{dataApi[0]?.title}</h1>
+          </span>
+          {dataApi?.description === undefined ? (
             <span>No description available</span>
           ) : (
-            <span>{dataApi[0]?.description}</span>
+            <span>{dataApi?.description}</span>
           )}
         </div>
       </div>
@@ -354,10 +364,9 @@ export function SearchImageAPI() {
             <span>{dataApi[0]?.description}</span>
           )}
         </div>
-        {dataApi.length > 0 && !dataApi[0].hasOwnProperty('description') ? (
+        {dataApi[0]?.description === undefined ? (
           <h1>No description available</h1>
         ) : (
-          // <h2>dataApi</h2>
           <span>{dataApi[0]?.description}</span>
         )}
 
@@ -380,14 +389,14 @@ export function SearchImageAPI() {
 
         <button>
           {imageContentStored && (
-            <div className="flex justify-between">
+            <div className="flex g">
               <img
-                className="object-contain hole_animation deskPlans"
+                className="object-contain hole_animation gap-5 deskPlans"
                 src={BH_IMAGE}
                 onClick={openModal}
               />
               <img
-                className="object-contain sun_animation deskPlans"
+                className="object-contain flex-end sun_animation deskPlans"
                 src={SUN_IMAGE}
                 onClick={planetFavoritesSwapped}
               />

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
 import BH_IMAGE from '../images/black-hole-image.png'
 import SUN_IMAGE from '../images/sun.png'
@@ -46,7 +46,7 @@ export function SearchImageAPI() {
 
   // const { setPlanetFavorite, imageContentStored } = usePlanet()
 
-  const { setPlanetFavorite, imageContentStored } = usePlanet()
+  const { setPlanetFavorite, planetItem, imageContentStored } = usePlanet()
   // video pausing
 
   // showing and closing star state
@@ -54,8 +54,6 @@ export function SearchImageAPI() {
   const [starShower, setStarShower] = useState(false)
 
   // state for modal
-
-  const [isOpen, setIsOpen] = useState(false)
 
   const navigate = useNavigate()
 
@@ -179,26 +177,9 @@ export function SearchImageAPI() {
         return
       }
 
-      alert('Input value invalid')
+      alert('Input value invalid or limited')
     }
   }
-
-  useEffect(() => {
-    setHrefImg(hrefImg)
-    setDataApi(dataApi)
-  }, [])
-
-  useEffect(() => {
-    if (imageContentStored) {
-      setHrefImg(imageContentStored.links[0]?.href)
-      // setDataApi(imageContentStored.data[0].center)
-      // console.log(imageContentStored)
-      console.log(dataApi[0]?.title)
-    }
-  }, [imageContentStored])
-
-  const audioCreation = new Audio()
-  //  effect for the planet clicked to update the jsx
 
   // putting the data in my LS when star is clicked
   function stored() {
@@ -207,46 +188,11 @@ export function SearchImageAPI() {
     navigate('/favoritePlanets')
   }
 
-  // audio ref hook
-  const audioRef = useRef(new Audio())
-
-  const openModal = () => {
-    setIsOpen(true)
-
-    const audio = audioRef.current
-    audio.src =
-      'https://dl.vgmdownloads.com/soundtracks/club-penguin-original-soundtrack/vgxkhusmkl/07.%20Box%20Dimension.mp3'
-    audio.loop = true
-    audio.play()
-  }
-
-  const closeModal = () => {
-    setIsOpen(false)
-    audioCreation.pause()
-    const audio = audioRef.current
-    audio.pause()
-
-    // play the click sound
-    const clickSoundEffect = new Audio(
-      'https://www.fesliyanstudios.com/play-mp3/387',
-    )
-    clickSoundEffect.play()
-  }
-
-  function planetFavoritesSwapped() {
-    navigate('/favoritePlanets')
-    // play the click sound
-    const clickSoundEffect = new Audio(
-      'https://www.fesliyanstudios.com/play-mp3/387',
-    )
-    clickSoundEffect.play()
-  }
-
   return (
     <>
       <section className="flex justify-center md:justify-start container">
         <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
-          {!imageContentStored ? (
+          {planetItem.length !== 0 ? (
             <input
               className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
               type="text"
@@ -256,7 +202,7 @@ export function SearchImageAPI() {
             />
           ) : (
             <input
-              className=" hidden rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
               type="text"
               placeholder="Feeling spacy..."
               value={inp}
@@ -264,7 +210,7 @@ export function SearchImageAPI() {
             />
           )}
 
-          {!imageContentStored ? (
+          {planetItem.length !== 0 ? (
             <div className="flex flex-col justify-center items-start">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
@@ -319,7 +265,7 @@ export function SearchImageAPI() {
       </section>
 
       <div className="flex justify-center sm:hidden">
-        {!imageContentStored ? (
+        {planetItem.length !== 0 ? (
           <input
             className="form-control w-60 rounded inpMobile lofiInput"
             type="text"
@@ -329,7 +275,7 @@ export function SearchImageAPI() {
           />
         ) : (
           <input
-            className="hidden"
+            className=""
             type="text"
             value={inp}
             placeholder="Feeling spacy..."
@@ -337,7 +283,7 @@ export function SearchImageAPI() {
           />
         )}
 
-        {!imageContentStored && (
+        {planetItem.length !== 0 && (
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white BL font-bold py-2 px-4 rounded transition-colors duration-300 ml-3 p-2"
             onClick={handleInputChange}
@@ -361,18 +307,16 @@ export function SearchImageAPI() {
               href={hrefImg} // Set href to the href value
               data-sub-html={`<div className='galleryContents'>
                   <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' ><strong>Title</strong>: ${
-                    dataApi[0]?.title
+                    dataApi[0]?.title || 'No Title'
                   }</a> <br> <div className='para'><p className=' text-4xl'><strong>Description:</strong> ${
-                dataApi[0]?.description
+                dataApi[0]?.description || 'No description'
               }</p> </div>
-              <strong>Center:</strong> ${dataApi[0]?.center}</p>
+              <strong>Center:</strong> ${dataApi[0]?.center || 'No Center'}</p>
               <br>
                   <strong>Keywords:</strong> ${
                     dataApi[0]?.keywords?.join(', ') || 'No Keywords'
                   }</p><br>
-                  <strong>Id:</strong> ${
-                    imageContentStored.data[0]?.nasa_id || 'No Id'
-                  }</p><br>
+                  <strong>Id:</strong> ${dataApi[0]?.nasa_id || 'No Id'}</p><br>
                   <strong>Created on:</strong>
                   <span>${dataApi[0]?.date_created || 'No date'}</span>
                   <br>
@@ -447,23 +391,6 @@ export function SearchImageAPI() {
           <button onClick={stored}>
             {hrefImg && !imageContentStored ? <FaStar /> : ''}
           </button>
-
-          <button>
-            {imageContentStored && (
-              <div className="flex sm:hidden">
-                <img
-                  className="h-28 object-contain hole_animation"
-                  src={BH_IMAGE}
-                  onClick={openModal}
-                />
-                <img
-                  className="h-28 object-contain sun_animation"
-                  src={SUN_IMAGE}
-                  onClick={planetFavoritesSwapped}
-                />
-              </div>
-            )}
-          </button>
         </div>
       </div>
 
@@ -477,59 +404,7 @@ export function SearchImageAPI() {
             ''
           )}
         </button>
-
-        <button>
-          {imageContentStored && (
-            <div className="flex md:gap-60">
-              <img
-                className="object-contain hole_animation deskPlans"
-                src={BH_IMAGE}
-                onClick={openModal}
-              />
-              <img
-                className="object-contain flex-end sun_animation deskPlans"
-                src={SUN_IMAGE}
-                onClick={planetFavoritesSwapped}
-              />
-            </div>
-          )}
-        </button>
       </div>
-      {isOpen && (
-        <div id="modalContainer" className="modal-container ">
-          <div className="flex-col items-center m-auto justify-center openingModalClr h-screen">
-            <div className="bg-white rounded p-10">
-              <div className="flex justify-end hover:opacity-75 hover:text-blue-950">
-                <button
-                  className="flex flex-col items-end float-right justify-end "
-                  onClick={closeModal}
-                >
-                  <FaTimes color="black" />
-                </button>
-              </div>
-              <div className="flex p-5">
-                <p className="text-black font-bold text-center">
-                  Are you sure you want to delete this awesome image?
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <button
-                  className="modal-button bg-red-600 transition-transform duration-300 ease-in-out hover:scale-110"
-                  onClick={closeModal}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="modal-button bg-green-600 transition-transform duration-300 ease-in-out hover:scale-110"
-                  onClick={closeModal}
-                >
-                  Confirm
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   )
 }

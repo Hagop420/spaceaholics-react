@@ -183,13 +183,13 @@ export function FavoritePlanets({
 
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
-    setContentPlanet(imageContentStored)
+    // setContentPlanet(imageContentStored)
     // play the click sound
     const clickSoundEffect = new Audio(
       'https://www.fesliyanstudios.com/play-mp3/387',
     )
     clickSoundEffect.play()
-    navigate(`/`)
+    navigate(`/EditingPage/${currIndex}`)
   }
 
   return (

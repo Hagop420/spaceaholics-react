@@ -220,7 +220,7 @@ export function SearchImageAPI() {
               </button>
             </div>
           ) : (
-            <div className="hidden flex-col justify-center items-start">
+            <div className="flex-col justify-center items-start">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors BL duration-300 p-2 ml-3"
                 onClick={handleInputChange}
@@ -274,13 +274,22 @@ export function SearchImageAPI() {
             onChange={handleChange}
           />
         ) : (
-          <input
-            className=""
-            type="text"
-            value={inp}
-            placeholder="Feeling spacy..."
-            onChange={handleChange}
-          />
+          <>
+            <input
+              className="form-control w-60 rounded inpMobile lofiInput"
+              type="text"
+              value={inp}
+              placeholder="Feeling spacy..."
+              onChange={handleChange}
+            />
+
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white BL font-bold py-2 px-4 rounded transition-colors duration-300 ml-3 p-2"
+              onClick={handleInputChange}
+            >
+              <FaSearch className="search-icon" color="black" />
+            </button>
+          </>
         )}
 
         {planetItem.length !== 0 && (
@@ -389,14 +398,20 @@ export function SearchImageAPI() {
 
         <div className="text-3xl hover:text-yellow-300">
           <button onClick={stored}>
-            {hrefImg && !imageContentStored ? <FaStar /> : ''}
+            {hrefImg ? (
+              <>
+                <FaStar />
+              </>
+            ) : (
+              ''
+            )}
           </button>
         </div>
       </div>
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
         <button onClick={stored}>
-          {hrefImg && !imageContentStored ? (
+          {hrefImg ? (
             <>
               <FaStar />
             </>

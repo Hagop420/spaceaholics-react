@@ -19,11 +19,11 @@
   border-radius: 50%;
   padding: 1px 5px;
 }
-
+/* 
 .deskPlans {
-  height: 200px !important;
+  height: 100px !important;
   justify-content: space-between !important;
-}
+} */
 .hole_animation {
   animation: black_hole_animation forwards infinite 1s ease-in-out;
 }

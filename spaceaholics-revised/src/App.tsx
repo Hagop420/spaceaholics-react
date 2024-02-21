@@ -18,6 +18,8 @@ function App() {
  // state for Item object - only 1
  const [imageContentStored, setImageContentStored] = useState<Item>()
 
+   
+
 
   // Creating the LS function
 

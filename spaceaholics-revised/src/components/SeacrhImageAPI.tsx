@@ -13,6 +13,7 @@ import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { usePlanet } from '../lib/usePlanet'
 import daisyui from 'daisyui'
+import { data } from 'jquery'
 
 export function SearchImageAPI() {
   // input state search for any nasa stuff
@@ -22,13 +23,7 @@ export function SearchImageAPI() {
 
   const [hrefImg, setHrefImg] = useState<any>()
 
-  const [populateContent, setPopulateContent] = useState<any>()
-
   // data content API state
-
-  // audio modal state
-
-  const [audio, setAudio] = useState('')
 
   const [dataApi, setDataApi] = useState<any>([])
 
@@ -53,6 +48,10 @@ export function SearchImageAPI() {
 
   const { setPlanetFavorite, imageContentStored } = usePlanet()
   // video pausing
+
+  // showing and closing star state
+
+  const [starShower, setStarShower] = useState(false)
 
   // state for modal
 
@@ -184,16 +183,17 @@ export function SearchImageAPI() {
     }
   }
 
-  // useEffect(() => {
-  //   setHrefImg(hrefImg)
-  //   setDataApi(dataApi)
-  // }, [])
+  useEffect(() => {
+    setHrefImg(hrefImg)
+    setDataApi(dataApi)
+  }, [])
 
   useEffect(() => {
     if (imageContentStored) {
-      setHrefImg(imageContentStored.links[0]?.href || imageContentStored?.url)
-      // setDataApi(imageContentStored?.data[0].title)
-      console.log(imageContentStored.data[0].title)
+      setHrefImg(imageContentStored.links[0]?.href)
+      // setDataApi(imageContentStored.data[0].center)
+      // console.log(imageContentStored)
+      console.log(dataApi[0]?.title)
     }
   }, [imageContentStored])
 
@@ -362,15 +362,17 @@ export function SearchImageAPI() {
               data-sub-html={`<div className='galleryContents'>
                   <h2 className='text-2xl'><a href='https://unsplash.com/@entrysquare' ><strong>Title</strong>: ${
                     dataApi[0]?.title
-                  } <br> <div className='para'><p className=' text-4xl'><strong>Description:</strong> ${
+                  }</a> <br> <div className='para'><p className=' text-4xl'><strong>Description:</strong> ${
                 dataApi[0]?.description
-              }</p>  </a></div>
+              }</p> </div>
               <strong>Center:</strong> ${dataApi[0]?.center}</p>
               <br>
                   <strong>Keywords:</strong> ${
                     dataApi[0]?.keywords?.join(', ') || 'No Keywords'
                   }</p><br>
-                  <strong>Id:</strong> ${dataApi[0]?.nasa_id}</p><br>
+                  <strong>Id:</strong> ${
+                    imageContentStored.data[0]?.nasa_id || 'No Id'
+                  }</p><br>
                   <strong>Created on:</strong>
                   <span>${dataApi[0]?.date_created || 'No date'}</span>
                   <br>
@@ -442,18 +444,20 @@ export function SearchImageAPI() {
         )}
 
         <div className="text-3xl hover:text-yellow-300">
-          <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
+          <button onClick={stored}>
+            {hrefImg && !imageContentStored ? <FaStar /> : ''}
+          </button>
 
           <button>
             {imageContentStored && (
-              <div className="flex flexx-col justify-between sm:hidden">
+              <div className="flex sm:hidden">
                 <img
-                  className="h-24 object-contain hole_animation"
+                  className="h-28 object-contain hole_animation"
                   src={BH_IMAGE}
                   onClick={openModal}
                 />
                 <img
-                  className="h-24 object-contain sun_animation"
+                  className="h-28 object-contain sun_animation"
                   src={SUN_IMAGE}
                   onClick={planetFavoritesSwapped}
                 />
@@ -464,7 +468,15 @@ export function SearchImageAPI() {
       </div>
 
       <div className="hidden sm:flex sm:flex-col sm:items-center sm:text-3xl hover:text-yellow-300">
-        <button onClick={stored}>{hrefImg ? <FaStar /> : ''}</button>
+        <button onClick={stored}>
+          {hrefImg && !imageContentStored ? (
+            <>
+              <FaStar />
+            </>
+          ) : (
+            ''
+          )}
+        </button>
 
         <button>
           {imageContentStored && (

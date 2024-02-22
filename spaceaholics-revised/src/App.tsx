@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { HomePageWrap } from './components/HomePageWrap'
 import { FavoritePlanets } from './components/FavoritesPage'

@@ -27,7 +27,7 @@ export function ApodImageAPI() {
         const data = await response.json()
         setAPOD(data)
         console.log(data)
-        console.log(apod?.hdurl)
+        console.log(data?.hdurl)
       } catch (err) {
         console.log(err)
       }

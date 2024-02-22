@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { LightDarkMode } from './LightDarkComponent'
+import SCRIBBLES_SVG from '../lib/scribbles.svg'
 import '../css/searchImageApi.css'
 import BH_IMAGE from '../images/black-hole-image.png'
 import SUN_IMAGE from '../images/sun.png'
@@ -16,6 +17,7 @@ import { usePlanet } from '../lib/usePlanet'
 import daisyui from 'daisyui'
 import { data } from 'jquery'
 import { TbLocationCancel } from 'react-icons/tb'
+import { Navbar } from './Navbar'
 
 export function EditingPage() {
   const [isOpen, setIsOpen] = useState(false)
@@ -100,10 +102,51 @@ export function EditingPage() {
     clickSoundEffect.play()
   }
 
+  // months functionallity arr
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
+  const dateString = planetItem[+planetId]?.data[0]?.date_created
+
+  if (dateString === undefined) return
+
+  const date = new Date(dateString)
+
+  const month = monthNames[date.getMonth()]
+  const day = date.getDate()
+  const year = date.getFullYear()
+  let hours = date.getHours()
+  const minutes = date.getMinutes()
+
+  // Determine AM/PM
+  const amPM = hours >= 12 ? 'PM' : 'AM'
+
+  // Convert hours to 12-hour format
+  hours = hours % 12 || 12
+
+  // Pad minutes with leading zero if necessary
+  const paddedMinutes = String(minutes).padStart(2, '0')
+
   return (
     <>
+      <Navbar />
       <LightDarkMode />
       <div className="flex items-center flex-col justify-center h-screen gap-y-5">
+        <h1 className="text-2xl">
+          {`Photo taken on: ${month} ${day} ${year} at ${hours}:${paddedMinutes} ${amPM}`}
+        </h1>
         <div className="flex justify-center">
           {/* lightgallery */}
 
@@ -150,7 +193,7 @@ export function EditingPage() {
             >
               <img
                 src={planetItem[+planetId]?.links[0]?.href}
-                className="rounded-none md:object-cover m-auto imgSearch"
+                className="rounded md:object-cover m-auto imgSearch"
                 alt="Editing Image."
               />
             </a>
@@ -158,18 +201,20 @@ export function EditingPage() {
 
           {/* end */}
         </div>
-        <h1 className="text-2xl">{planetItem[+planetId]?.data[0]?.title}</h1>
+        <h2 className="text-2xl font-bold">
+          {planetItem[+planetId]?.data[0]?.title}
+        </h2>
         <div className="flex flex-col items-center justify-center sm:flex sm:flex-row">
           <button>
             <img
-              className="h-28 animate-spin sm:object-contain"
+              className="h-20 sm:h-28 md:h-28 lg:h-10 animate-spin sm:object-contain deskPlans"
               src={BH_IMAGE}
               onClick={openModal}
             />
           </button>
           <button>
             <img
-              className="h-28 sun_animation sm:object-contain"
+              className="h-20 sm:h-28 md:h-28 lg:object-contain sun_animation sm:object-contain deskPlans"
               src={SUN_IMAGE}
               onClick={planetFavoritesSwapped}
             />

@@ -18,7 +18,17 @@ function App() {
  // state for Item object - only 1
  const [imageContentStored, setImageContentStored] = useState<Item>()
 
-   
+    
+//  localStorage.setItem('Planet_information', JSON.stringify(planetItems))
+
+
+    const item = localStorage.getItem('Planet_information');
+
+  switch (!item) {
+    case true:
+      localStorage.setItem('Planet_information', JSON.stringify(planetItems))
+
+    }
 
 
   // Creating the LS function

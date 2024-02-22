@@ -4,7 +4,7 @@ export function LightDarkMode() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
 
   // browser theme
-  function handleToggle(e) {
+  function handleToggle(e: { target: { checked: any } }) {
     if (e.target.checked) {
       setTheme('night')
     } else {

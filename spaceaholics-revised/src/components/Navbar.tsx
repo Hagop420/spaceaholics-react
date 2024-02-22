@@ -6,7 +6,7 @@ import 'tippy.js/themes/translucent.css'
 import { Item } from './planetProvider'
 
 export function Navbar() {
-  const [planetItems, setPlanetItems] = useState<Item[]>([])
+  const [planetItems] = useState<Item[]>([])
 
   const buttonTooltip = useRef(null)
   const navigate = useNavigate()

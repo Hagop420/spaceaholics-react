@@ -1,12 +1,10 @@
 import { FaPencil } from 'react-icons/fa6'
 import { Item } from './planetProvider'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
 import LightGallery from 'lightgallery/react'
-import lgZoom from 'lightgallery/plugins/zoom'
-import lgVideo from 'lightgallery/plugins/video'
 import '../css/favorites.css'
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgHash from 'lightgallery/plugins/hash'
@@ -38,28 +36,7 @@ export function FavoritePlanets({
 
   // LS destructured
 
-  const {
-    setStoredFavorite,
-    setImageContentStored,
-    imageContentStored,
-  } = usePlanet()
-
-  const [contentPlanet, setContentPlanet] = useState<Item>()
-
-  // // browser theme
-  // function handleToggle(e) {
-  //   if (e.target.checked) {
-  //     setTheme('night')
-  //   } else {
-  //     setTheme('lofi') //light
-  //   }
-  // }
-  // // browser theme
-  // useEffect(() => {
-  //   localStorage.setItem('theme', theme)
-  //   const localTheme = localStorage.getItem('theme') ?? 'lofi'
-  //   document.querySelector('html')?.setAttribute('data-theme', localTheme)
-  // }, [theme])
+  const { setStoredFavorite, setImageContentStored } = usePlanet()
 
   // get my local storage items
   useEffect(() => {
@@ -67,9 +44,12 @@ export function FavoritePlanets({
   }, [])
 
   // iframe pause useEffect
+
   useEffect(() => {
     function framesChange() {
-      const iframes = document.querySelectorAll('.pause_first')
+      const iframes = document.querySelectorAll<HTMLIFrameElement>(
+        '.pause_first',
+      )
 
       if (iframes !== null) {
         iframes.forEach((iframe) => {

@@ -19,14 +19,7 @@ function App() {
  const [imageContentStored, setImageContentStored] = useState<Item>()
 
     
-//  localStorage.setItem('Planet_information', JSON.stringify(planetItems))
 
-
-    const item = localStorage.getItem('Planet_information');
-
-    if(!item){
-   localStorage.setItem('Planet_information', JSON.stringify(planetItems))
-}
 
 
   // Creating the LS function
@@ -38,6 +31,13 @@ function App() {
     localStorage.setItem('Planet_information', JSON.stringify(planetFav))
   }
 
+  useEffect(() => {
+    if (!localStorage.getItem('Planet_information')) {
+        localStorage.setItem('Planet_information' , JSON.stringify(planetItems))
+      
+    }
+  } , [localStorage])
+
  
 
   // getting my LS planets info parsed
@@ -46,6 +46,7 @@ function App() {
       setPlanetItems(JSON.parse(getStored))
   }
 
+  
 
   function deletePlanet(index: number) {
     const newArr: Item[] = []
@@ -64,7 +65,9 @@ function App() {
   useEffect(() => {
     const getStored = localStorage.getItem('Planet_information')
     setPlanetItems(JSON.parse(getStored))
-} , [])
+  }, [])
+  
+  
 
  
   

@@ -1,10 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/translucent.css'
+import { Item } from './planetProvider'
 
 export function Navbar() {
+  const [planetItems, setPlanetItems] = useState<Item[]>([])
+
   const buttonTooltip = useRef(null)
   const navigate = useNavigate()
 
@@ -18,6 +21,10 @@ export function Navbar() {
   }, [])
 
   const favPlanet = () => {
+    const item = localStorage.getItem('Planet_information')
+    if (!item) {
+      localStorage.setItem('Planet_information', JSON.stringify(planetItems))
+    }
     navigate('/favoritePlanets')
   }
 

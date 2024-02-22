@@ -69,16 +69,18 @@ export function FavoritePlanets({
   // iframe pause useEffect
   useEffect(() => {
     function framesChange() {
-      const iframe = document.querySelector('.pause_first')
+      const iframes = document.querySelectorAll('.pause_first')
 
-      if (iframe !== null) {
-        const temp = iframe.src
-        iframe.src = temp
+      if (iframes !== null) {
+        iframes.forEach((iframe) => {
+          const temp = iframe.src
+          iframe.src = temp
+        })
       }
     }
 
     function handleResize() {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth < 768) {
         framesChange()
       }
     }
@@ -116,7 +118,7 @@ export function FavoritePlanets({
           <iframe
             width="510"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
             src="https://www.youtube.com/embed/XeUP83wRhjQ?si=dQiGHoF1bITIhvt-"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -125,7 +127,7 @@ export function FavoritePlanets({
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
             src="https://www.youtube.com/embed/X7GE6Ye8c3c?si=OBtQXOdfDMqOdS4t"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -134,7 +136,7 @@ export function FavoritePlanets({
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
             src="https://www.youtube.com/embed/pJZQlX2Fs7A?si=CeprScpcxUVKxAdH"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -143,8 +145,26 @@ export function FavoritePlanets({
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
             src="https://www.youtube.com/embed/iqnpZngxYMs?si=S3BV9_ONHk7JbMXD"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          ></iframe>
+          {/* iframe5 */}
+          <iframe
+            width="520"
+            height="315"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            src="https://www.youtube.com/embed/JhGNH88XshI?si=LlvtF1YYSICzg_AG"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          ></iframe>
+          {/* iframe6 */}
+          <iframe
+            width="520"
+            height="315"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            src="https://www.youtube.com/embed/IP-JCw2Lrks?si=hQ3VwZPxQbJL6hxz"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           ></iframe>

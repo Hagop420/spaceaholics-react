@@ -36,7 +36,7 @@ function App() {
         localStorage.setItem('Planet_information' , JSON.stringify(planetItems))
       
     }
-  } , [localStorage])
+  } , [planetItems])
 
  
 

@@ -24,11 +24,9 @@ function App() {
 
     const item = localStorage.getItem('Planet_information');
 
-  switch (!item) {
-    case true:
-      localStorage.setItem('Planet_information', JSON.stringify(planetItems))
-
-    }
+    if(!item){
+   localStorage.setItem('Planet_information', JSON.stringify(planetItems))
+}
 
 
   // Creating the LS function

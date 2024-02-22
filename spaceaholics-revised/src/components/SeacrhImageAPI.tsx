@@ -190,8 +190,8 @@ export function SearchImageAPI() {
 
   return (
     <>
-      <section className="flex justify-center md:justify-start container">
-        <div className="hidden sm:flex lg:flex sm:m-auto sm:justify-center">
+      <section className="flex justify-center m-auto md:justify-start container">
+        <div className="hidden sm:flex lg:flex sm:m-auto md:p-4 sm:justify-center">
           {planetItem.length !== 0 ? (
             <input
               className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
@@ -234,8 +234,8 @@ export function SearchImageAPI() {
         <iframe
           width="500"
           height="295"
-          className="m-4 lg:w-96"
-          src="https://www.youtube.com/embed/_IkaetPoBZM?si=E2HSa_s5AqMQVjX2"
+          className="m-4 lg:w-96 rounded-none sm:rounded"
+          src="https://www.youtube.com/embed/libKVRa01L8?si=F43dD9dWos-l_hpI"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

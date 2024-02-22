@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import placeholderImage from '../images/placeholder-image.jpg'
+import No_Video from '../images/No_Video.png'
 import '../css/apodAPI.css'
 import { LightDarkMode } from './LightDarkComponent'
 
@@ -47,12 +48,13 @@ export function ApodImageAPI() {
             width="560"
             height="315"
             src={apod.url}
+            className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         ) : apod?.url.includes('youtube') === undefined ? (
           <img
-            src="https://cdn.dribbble.com/users/17914/screenshots/4902225/media/0d6d47739dae97adc81ca7076ee56cc9.png?resize=400x300&vertical=center"
+            src={No_Video}
             className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
             alt="APOD video."
           />

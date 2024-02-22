@@ -7,13 +7,6 @@ img {
     height: 400px;
     object-fit: cover;
   }
-  .imageAPOD {
-    /* min-width: 50%; */
-  }
-
-  .space-APOD-content {
-    /* min-width: 210px; */
-  }
 }
 
 @media (min-width: 1024px) {

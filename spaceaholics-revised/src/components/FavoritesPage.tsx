@@ -237,7 +237,7 @@ export function FavoritePlanets({
                   >
                     <img
                       src={pl.links[0]?.href}
-                      className="rounded-none h-28 sm:h-40"
+                      className="rounded-none h-28 sm:h-40 lg:rounded"
                       alt=""
                     />
                   </a>

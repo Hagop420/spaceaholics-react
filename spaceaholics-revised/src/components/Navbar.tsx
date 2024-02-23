@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import tippy from 'tippy.js'
-import Astronaut from '../images/astronaut.png'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/translucent.css'
 import { Item } from './planetProvider'

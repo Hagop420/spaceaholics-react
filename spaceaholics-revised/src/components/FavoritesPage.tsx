@@ -12,7 +12,6 @@ import lgPager from 'lightgallery/plugins/pager'
 import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { LightDarkMode } from './LightDarkComponent'
-import { Navbar } from './Navbar'
 
 //planet array type []
 type PlanetStoringImagesAndContentsProp = {

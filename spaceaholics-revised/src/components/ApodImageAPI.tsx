@@ -8,7 +8,7 @@ import { LightDarkMode } from './LightDarkComponent'
 
 export function ApodImageAPI() {
   //state for apod image response
-  const [apod, setAPOD] = useState<Response>()
+  const [apod, setAPOD] = useState<ApodResponseType>()
 
   // API image days states
 
@@ -16,6 +16,14 @@ export function ApodImageAPI() {
   const apiKey = 'RJxySWoCj5Mz4VD5v3hzxeCp8KqbGdRUaCzeHrVy'
 
   // Fetching the APOD image API
+
+  type ApodResponseType = {
+    url: string
+    hdurl: string
+    title: string
+    explanation: string
+    date: string
+  }
 
   useEffect(() => {
     async function apodFetchFunction() {
@@ -27,7 +35,6 @@ export function ApodImageAPI() {
         const data = await response.json()
         setAPOD(data)
         console.log(data)
-        console.log(data?.hdurl)
       } catch (err) {
         console.log(err)
       }

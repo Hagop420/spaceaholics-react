@@ -1,12 +1,10 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { LightDarkMode } from './LightDarkComponent'
-import SCRIBBLES_SVG from '../lib/scribbles.svg'
 import '../css/searchImageApi.css'
 import BH_IMAGE from '../images/black-hole-image.png'
 import SUN_IMAGE from '../images/sun.png'
-import { FaHotel, FaSearch, FaStar, FaTimes } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Item, planetContext } from './planetProvider'
 import LightGallery from 'lightgallery/react'
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgHash from 'lightgallery/plugins/hash'
@@ -14,9 +12,6 @@ import lgPager from 'lightgallery/plugins/pager'
 import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { usePlanet } from '../lib/usePlanet'
-import daisyui from 'daisyui'
-import { data } from 'jquery'
-import { TbLocationCancel } from 'react-icons/tb'
 import { Navbar } from './Navbar'
 
 export function EditingPage() {
@@ -36,30 +31,9 @@ export function EditingPage() {
 
   const { planetItem, setPlanetItem } = usePlanet()
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
-
   if (planetId === undefined) return
 
   console.log(planetItem[+planetId])
-
-  // theme
-
-  //   // browser theme
-  //   function handleToggle(e) {
-  //     if (e.target.checked) {
-  //       setTheme('night')
-  //     } else {
-  //       setTheme('lofi') //light
-  //     }
-  //   }
-  //   // browser theme
-  //   useEffect(() => {
-  //     localStorage.setItem('theme', theme)
-  //     const localTheme = localStorage.getItem('theme') ?? 'lofi'
-  //     document.querySelector('html')?.setAttribute('data-theme', localTheme)
-  //   }, [theme])
-
-  //   modal functions
 
   // audio ref hook
   const audioRef = useRef(new Audio())

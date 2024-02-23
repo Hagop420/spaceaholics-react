@@ -1,6 +1,6 @@
 import { FaPencil } from 'react-icons/fa6'
 import { Item } from './planetProvider'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
@@ -12,6 +12,7 @@ import lgPager from 'lightgallery/plugins/pager'
 import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { LightDarkMode } from './LightDarkComponent'
+import { Navbar } from './Navbar'
 
 //planet array type []
 type PlanetStoringImagesAndContentsProp = {
@@ -27,6 +28,11 @@ export function FavoritePlanets({
 
   // navbar home button function
   const homeApi = () => {
+    // play the click sound
+    const clickSoundEffect = new Audio(
+      'https://www.fesliyanstudios.com/play-mp3/387',
+    )
+    clickSoundEffect.play()
     navigate('/')
   }
 
@@ -72,19 +78,46 @@ export function FavoritePlanets({
     }
   }, [])
 
+  useEffect(() => {
+    function framesChange() {
+      const iframe = document.querySelector<HTMLIFrameElement>('.main_iframe')
+
+      if (iframe !== null) {
+        const temp = iframe.src
+        iframe.src = temp
+      }
+    }
+
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        framesChange()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   if (planet.length === 0) {
     return (
       <>
-        <nav className="p-3 navbar flex justify-between sm:justify-around bg-slate-400">
+        <nav className="p-2 navbar flex justify-between sm:justify-around bg-blue-400">
           <div className="transform rotate-3 transition-transform duration-300 ease-in-out hover:rotate-6">
-            <h1 className="text-2xl">Spaceaholics🪐</h1>
+            <h1 className="text-2xl">
+              <Link to="/" onClick={homeApi}>
+                Galaxy Quest🪐
+              </Link>
+            </h1>
           </div>
 
           <button
-            className="py-2 px-5 bg-black font-semibold rounded-full shadow-md hover:bg-amber-400"
+            className="py-2 px-5 bg-black font-semibold rounded-full shadow-md hover:bg-slate-800"
             onClick={homeApi}
           >
-            <FaHome />
+            <FaHome color="white" />
           </button>
         </nav>
 
@@ -93,6 +126,8 @@ export function FavoritePlanets({
         <h2 className="text-center text-2xl p-5 font-bold">
           No Favorite Planets 🪐🌙 🌏
         </h2>
+
+        <LightDarkMode />
 
         <div className="hidden md:grid md:grid-cols-2 xl:grid-cols-3">
           <iframe
@@ -154,10 +189,10 @@ export function FavoritePlanets({
           <iframe
             width="770"
             height="660"
-            src="https://www.youtube.com/embed/beW6KCQ90Qc?si=9lNwG1TdtTzPJt-B"
+            src="https://www.youtube.com/embed/wzjWIxXBs_s?si=NAiFGFWQ-2Sn9W-G"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            className="pause_first sm:rounded"
+            className="main_iframe sm:rounded"
           ></iframe>
         </div>
       </>
@@ -182,7 +217,7 @@ export function FavoritePlanets({
     <>
       <nav className="p-3 navbar flex justify-between sm:justify-around bg-slate-400">
         <div className="transform rotate-3 transition-transform duration-300 ease-in-out hover:rotate-6">
-          <h1 className="text-2xl">Spaceaholics🪐</h1>
+          <h1 className="text-2xl">Galaxy Quest🪐</h1>
         </div>
 
         <button

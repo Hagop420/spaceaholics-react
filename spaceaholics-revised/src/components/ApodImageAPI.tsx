@@ -74,7 +74,7 @@ export function ApodImageAPI() {
         ) : (
           <img
             src={apod?.hdurl}
-            className="rounded-none md:h-screen md:object-fill m-auto w-96 sm:w-auto imageAPOD"
+            className="rounded-none md:h-screen md:object-cover m-auto w-96 sm:w-auto imageAPOD"
             alt="APOD Img."
           />
         )}
@@ -84,10 +84,10 @@ export function ApodImageAPI() {
         <hr className="m-4" />
         <div className="text-center block sm:text-left sm:flex sm:flex-col sm:justify-center">
           <div className="space-APOD-content">
-            <h2 className="text-2xl">
+            <h2 className="text-2xl BBWH">
               {apod?.title || `Our solar system ☀️🪐🌍🌕 `}
             </h2>
-            <p className="p-2 first-letter:text-blue-500 first-letter:font-cursive first-letter:font-bold first-letter:text-3xl">
+            <p className="p-2 first-letter:text-blue-500 first-letter:font-cursive first-letter:font-bold first-letter:text-3xl BBWH">
               {apod?.explanation ||
                 "In our solar system, there's a fascinating celestial object known as Saturn's moon Enceladus. Despite its small size, this icy moon has garnered significant attention due to its remarkable geysers erupting from its south pole. These geysers spew water vapor and icy particles into space, creating a striking plume that extends hundreds of kilometers above the moon's surface. This phenomenon indicates the presence of a subsurface ocean beneath Enceladus's icy crust, making it one of the most promising locations for potential extraterrestrial life within our solar system. The discovery of these geysers came from observations made by the Cassini spacecraft, which provided invaluable insights into the dynamic and potentially habitable environments of moons orbiting Saturn"}
             </p>

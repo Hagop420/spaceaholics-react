@@ -38,3 +38,19 @@ img {
 .lg-sub-html p {
   display: none;
 }
+
+[data-theme='lofi'] {
+  .NVWH {
+    background-color: #fff;
+  }
+
+  .NVWH:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: rgb(224, 211, 193);
+  }
+}
+[data-theme='lofi'] {
+  .BBWH {
+    font-weight: bold;
+  }
+}

@@ -360,6 +360,7 @@ export function SearchImageAPI() {
               <span>{dataApi?.title}</span>
             </div>
           )}
+          {/* changes */}
           <span className="text-2xl font-bold">
             {/* <h1>{dataApi[0]?.title}</h1> */}
           </span>

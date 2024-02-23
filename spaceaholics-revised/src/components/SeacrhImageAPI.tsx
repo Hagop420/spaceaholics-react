@@ -1,10 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import '../css/searchImageApi.css'
-import BH_IMAGE from '../images/black-hole-image.png'
-import SUN_IMAGE from '../images/sun.png'
-import { FaHotel, FaSearch, FaStar, FaTimes } from 'react-icons/fa'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Item, planetContext } from './planetProvider'
+import { FaSearch, FaStar } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { Item } from './planetProvider'
 import LightGallery from 'lightgallery/react'
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgHash from 'lightgallery/plugins/hash'
@@ -12,11 +10,9 @@ import lgPager from 'lightgallery/plugins/pager'
 import lgRotate from 'lightgallery/plugins/rotate'
 import lgShare from 'lightgallery/plugins/share'
 import { usePlanet } from '../lib/usePlanet'
-import daisyui from 'daisyui'
-import { data } from 'jquery'
 
 export function SearchImageAPI() {
-  // input state search for any nasa stuff
+  // input state search for any nasa
   const [inp, setInp] = useState<any>('')
 
   // href API apod image state
@@ -29,11 +25,11 @@ export function SearchImageAPI() {
 
   // input is blank or not state
 
-  const [isI, setIsI] = useState(true)
+  const [isI] = useState(true)
 
   // API convert to json state
 
-  const [inputApi, setInputApi] = useState<Response>()
+  const [, setInputApi] = useState<Response>()
 
   // input blank state
 
@@ -49,10 +45,6 @@ export function SearchImageAPI() {
   const { setPlanetFavorite, planetItem, imageContentStored } = usePlanet()
   // video pausing
 
-  // showing and closing star state
-
-  const [starShower, setStarShower] = useState(false)
-
   // state for modal
 
   const navigate = useNavigate()
@@ -60,7 +52,7 @@ export function SearchImageAPI() {
   // iframe pause useEffect
   useEffect(() => {
     function framesChange() {
-      const iframe = document.querySelector('.pause_first')
+      const iframe = document.querySelector<HTMLIFrameElement>('.pause_first')
 
       if (iframe !== null) {
         const temp = iframe.src
@@ -84,7 +76,9 @@ export function SearchImageAPI() {
   // iframe pause useEffect
   useEffect(() => {
     function framesChange() {
-      const iframe = document.querySelector('.pause_final_frame')
+      const iframe = document.querySelector<HTMLIFrameElement>(
+        '.pause_final_frame',
+      )
 
       if (iframe !== null) {
         const temp = iframe.src
@@ -158,10 +152,12 @@ export function SearchImageAPI() {
           const regexTags = /<[^>]*>/g // Match any HTML tags
           const regexEntities = /&[a-zA-Z]+;/g // Match HTML entities like &lt;
           const regexHref = /href\s*=\s*["'][^"']*["']/g // Match href attributes
+          const unwantedHref = /href=http:\/\/www\.facebook\.com\/pages\/Greenbelt-MD\/NASA-Goddard\/39501/ // Match the unwanted href
 
           let result = dataCol[i]?.description.replace(regexTags, '') // Remove HTML tags
           result = result.replace(regexEntities, '') // Remove HTML entities
           result = result.replace(regexHref, '')
+          result = result.replace(unwantedHref, '') // Remove unwanted href
           dataCol[i].description = result
           // console.log(result)
         }
@@ -170,7 +166,9 @@ export function SearchImageAPI() {
 
       // return <img src={hrefImg} alt="" />
     } catch (err) {
-      const input_mobile = document.querySelector('.inpMobile')
+      const input_mobile = document.querySelector<HTMLInputElement>(
+        '.inpMobile',
+      )
 
       if (input_mobile?.value === '') {
         alert('Input field is a required field')
@@ -349,6 +347,11 @@ export function SearchImageAPI() {
         <div className="hidden item-width sm:flex sm:flex-col sm:items-center sm:text-center lg:text-left sm:justify-start sm:m-auto lg:items-start content-width">
           <span className="text-2xl font-bold">
             <h1>{dataApi[0]?.title}</h1>
+            {dataApi[0]?.date_created ? (
+              <h1>Date Taken: {dataApi[0]?.date_created}</h1>
+            ) : (
+              <span>{dataApi[0]?.description}</span>
+            )}{' '}
           </span>
           {dataApi?.title !== undefined ? (
             <span>No title available</span>
@@ -386,7 +389,6 @@ export function SearchImageAPI() {
           {dataApi[0]?.date_created ? (
             <h1>Date Taken: {dataApi[0]?.date_created}</h1>
           ) : (
-            // <h2>dataApi</h2>
             <span>{dataApi[0]?.description}</span>
           )}
         </div>

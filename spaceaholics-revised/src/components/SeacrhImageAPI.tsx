@@ -99,6 +99,57 @@ export function SearchImageAPI() {
     }
   }, [])
 
+  // pause all other i frames when the targeted i frame is fullScreen
+  useEffect(() => {
+    const handleFullScreenChange = (e: { target: any }) => {
+      const fullscreenElement: any = document.fullscreenElement
+
+      const clickedIframe = e.target
+
+      if (
+        fullscreenElement ||
+        fullscreenElement.classList.contains('fullScreen')
+      ) {
+        iframes.forEach((iframe) => {
+          if (
+            iframe !== clickedIframe &&
+            iframe.classList.contains('fullScreen')
+          ) {
+            const temp = iframe.src
+            iframe.src = temp
+          }
+        })
+      }
+    }
+
+    const iframes = document.querySelectorAll('.fullScreen') as NodeListOf<
+      HTMLIFrameElement
+    >
+
+    iframes.forEach((iframe) => {
+      iframe.addEventListener('fullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('webkitfullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('mozfullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('MSFullscreenChange', handleFullScreenChange)
+    })
+
+    return () => {
+      iframes.forEach((iframe) => {
+        iframe.removeEventListener('fullscreenchange', handleFullScreenChange)
+        iframe.removeEventListener(
+          'webkitfullscreenchange',
+          handleFullScreenChange,
+        )
+        iframe.removeEventListener(
+          'mozfullscreenchange',
+          handleFullScreenChange,
+        )
+        iframe.removeEventListener('MSFullscreenChange', handleFullScreenChange)
+      })
+    }
+  }, [])
+  // end UE
+
   // input field keydown change validation function
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -232,7 +283,7 @@ export function SearchImageAPI() {
         <iframe
           width="500"
           height="295"
-          className="m-4 lg:w-96 rounded-none sm:rounded"
+          className="m-4 lg:w-96 rounded-none sm:rounded fullScreen"
           src="https://www.youtube.com/embed/libKVRa01L8?si=F43dD9dWos-l_hpI"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -242,7 +293,7 @@ export function SearchImageAPI() {
         <iframe
           width="500"
           height="295"
-          className="rounded pause_first hidden sm:hidden sm:m-4 lg:flex lg:w-96"
+          className="rounded pause_first hidden sm:hidden sm:m-4 lg:flex lg:w-96 fullScreen"
           src="https://www.youtube.com/embed/5vjl6tdwmFA?si=rlEamOmZYS3Vts_t"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -253,7 +304,7 @@ export function SearchImageAPI() {
           <iframe
             width="500"
             height="295"
-            className="rounded hidden pause_final_frame lg:hidden sm:m-4 lg:w-96 xl:flex"
+            className="rounded hidden pause_final_frame lg:hidden sm:m-4 lg:w-96 fullScreen xl:flex"
             src="https://www.youtube.com/embed/Ia39ekE_pLU?si=uEPsCsFSSZMAmA6c"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

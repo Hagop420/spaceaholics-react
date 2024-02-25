@@ -1,7 +1,7 @@
 import { FaPencil } from 'react-icons/fa6'
 import { Item } from './planetProvider'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
 import LightGallery from 'lightgallery/react'
@@ -16,10 +16,14 @@ import { LightDarkMode } from './LightDarkComponent'
 //planet array type []
 type PlanetStoringImagesAndContentsProp = {
   planet: Item[]
+  src: string
+  title: string
 }
 
 export function FavoritePlanets({
   planet,
+  src,
+  title,
 }: PlanetStoringImagesAndContentsProp) {
   console.log()
 
@@ -100,6 +104,57 @@ export function FavoritePlanets({
     }
   }, [])
 
+  // pause all other i frames when the targeted i frame is fullScreen
+  useEffect(() => {
+    const handleFullScreenChange = (e: { target: any }) => {
+      const fullscreenElement: any = document.fullscreenElement
+
+      const clickedIframe = e.target
+
+      if (
+        fullscreenElement ||
+        fullscreenElement.classList.contains('fullScreen')
+      ) {
+        iframes.forEach((iframe) => {
+          if (
+            iframe !== clickedIframe &&
+            iframe.classList.contains('fullScreen')
+          ) {
+            const temp = iframe.src
+            iframe.src = temp
+          }
+        })
+      }
+    }
+
+    const iframes = document.querySelectorAll('.fullScreen') as NodeListOf<
+      HTMLIFrameElement
+    >
+
+    iframes.forEach((iframe) => {
+      iframe.addEventListener('fullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('webkitfullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('mozfullscreenchange', handleFullScreenChange)
+      iframe.addEventListener('MSFullscreenChange', handleFullScreenChange)
+    })
+
+    return () => {
+      iframes.forEach((iframe) => {
+        iframe.removeEventListener('fullscreenchange', handleFullScreenChange)
+        iframe.removeEventListener(
+          'webkitfullscreenchange',
+          handleFullScreenChange,
+        )
+        iframe.removeEventListener(
+          'mozfullscreenchange',
+          handleFullScreenChange,
+        )
+        iframe.removeEventListener('MSFullscreenChange', handleFullScreenChange)
+      })
+    }
+  }, [])
+  // end UE
+
   if (planet.length === 0) {
     return (
       <>
@@ -132,55 +187,61 @@ export function FavoritePlanets({
           <iframe
             width="510"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/XeUP83wRhjQ?si=dQiGHoF1bITIhvt-"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
           {/* iframe 2 */}
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/X7GE6Ye8c3c?si=OBtQXOdfDMqOdS4t"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
           {/* iframe3 */}
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/pJZQlX2Fs7A?si=CeprScpcxUVKxAdH"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
           {/* iframe4 */}
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/iqnpZngxYMs?si=S3BV9_ONHk7JbMXD"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
           {/* iframe5 */}
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/JhGNH88XshI?si=LlvtF1YYSICzg_AG"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
           {/* iframe6 */}
           <iframe
             width="520"
             height="315"
-            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first"
+            className="md:m-3 md:p-20 sm:mb-4 lg:p-12 pause_first fullScreen"
             src="https://www.youtube.com/embed/IP-JCw2Lrks?si=hQ3VwZPxQbJL6hxz"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           ></iframe>
         </div>
 

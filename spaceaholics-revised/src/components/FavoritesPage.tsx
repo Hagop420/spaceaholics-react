@@ -16,8 +16,6 @@ import { LightDarkMode } from './LightDarkComponent'
 //planet array type []
 type PlanetStoringImagesAndContentsProp = {
   planet: Item[]
-  src: string
-  title: string
 }
 
 export function FavoritePlanets({

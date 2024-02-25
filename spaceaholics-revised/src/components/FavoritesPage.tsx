@@ -1,7 +1,7 @@
 import { FaPencil } from 'react-icons/fa6'
 import { Item } from './planetProvider'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { usePlanet } from '../lib/usePlanet'
 import { FaHome } from 'react-icons/fa'
 import LightGallery from 'lightgallery/react'
@@ -22,8 +22,6 @@ type PlanetStoringImagesAndContentsProp = {
 
 export function FavoritePlanets({
   planet,
-  src,
-  title,
 }: PlanetStoringImagesAndContentsProp) {
   console.log()
 

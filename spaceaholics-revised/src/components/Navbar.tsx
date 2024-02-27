@@ -37,7 +37,7 @@ export function Navbar() {
     <nav className="p-2 navbar flex justify-between sm:justify-around bg-blue-400">
       <div className="transform rotate-3 transition-transform duration-300 ease-in-out hover:rotate-6">
         <h1 className="text-2xl">
-          <Link to="/">Galaxy Quest🪐</Link>
+          <Link to="/">Spceaholics🪐</Link>
         </h1>
       </div>
 

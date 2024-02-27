@@ -48,8 +48,6 @@ img {
   background-color: rgb(224, 211, 193);
 }
 
-[data-theme='lofi'] {
-  .BBWH {
-    font-weight: bold;
-  }
+[data-theme='lofi'] .BBWH {
+  font-weight: bold;
 }

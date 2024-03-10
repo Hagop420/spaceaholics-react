@@ -117,9 +117,9 @@ export function EditingPage() {
     <>
       <Navbar />
       <LightDarkMode />
-      <div className="flex items-center flex-col justify-center h-screen gap-y-5">
-        <h1 className="text-2xl">
-          {`Photo taken on: ${month} ${day} ${year} at ${hours}:${paddedMinutes} ${amPM}`}
+      <div className="flex items-center flex-col justify-center gap-y-5">
+        <h1 className="text-2xl text-center">
+          {`Photo taken on: ${month} ${day}, ${year} at ${hours}:${paddedMinutes} ${amPM}`}
         </h1>
         <div className="flex justify-center">
           {/* lightgallery */}
@@ -178,6 +178,9 @@ export function EditingPage() {
         <h2 className="text-2xl font-bold">
           {planetItem[+planetId]?.data[0]?.title}
         </h2>
+        <small className="text-center bg-black rounded p-1 text-yellow-200">
+          Id: {planetItem[+planetId]?.data[0]?.nasa_id || 'NO ID'}
+        </small>
         <div className="flex flex-col items-center justify-center sm:flex sm:flex-row">
           <button>
             <img
@@ -188,7 +191,7 @@ export function EditingPage() {
           </button>
           <button>
             <img
-              className="h-20 sm:h-28 md:h-28 lg:object-contain sun_animation sm:object-contain deskPlans"
+              className="h-20 sm:h-28 md:h-28 lg:object-contain sun_animation hover:animate-none sm:object-contain deskPlans"
               src={SUN_IMAGE}
               onClick={planetFavoritesSwapped}
             />

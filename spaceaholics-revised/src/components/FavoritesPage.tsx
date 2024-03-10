@@ -37,8 +37,6 @@ export function FavoritePlanets({
 
   // state for theme
 
-  // const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'lofi')
-
   // LS destructured
 
   const { setStoredFavorite, setImageContentStored } = usePlanet()
@@ -260,7 +258,6 @@ export function FavoritePlanets({
 
   function delFunctionPlanet(currIndex: number) {
     setImageContentStored(planet[currIndex])
-    // setContentPlanet(imageContentStored)
     // play the click sound
     const clickSoundEffect = new Audio(
       'https://www.fesliyanstudios.com/play-mp3/387',
@@ -273,14 +270,16 @@ export function FavoritePlanets({
     <>
       <nav className="p-3 navbar flex justify-between sm:justify-around bg-slate-400">
         <div className="transform rotate-3 transition-transform duration-300 ease-in-out hover:rotate-6">
-          <h1 className="text-2xl">Spaceaholics🪐</h1>
+          <button onClick={homeApi}>
+            <h1 className="text-2xl">Spaceaholics🪐</h1>
+          </button>
         </div>
 
         <button
-          className="py-2 px-5 bg-black font-semibold rounded-full shadow-md hover:bg-amber-400"
+          className="py-2 px-5 bg-black font-semibold rounded-full shadow-md hover:bg-red-500"
           onClick={homeApi}
         >
-          <FaHome color="gold" />
+          <FaHome color="white" />
         </button>
       </nav>
 

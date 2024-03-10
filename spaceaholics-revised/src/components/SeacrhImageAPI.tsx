@@ -38,6 +38,10 @@ export function SearchImageAPI() {
   // content state random from API
   const [displayedContent, setDisplayedContent] = useState<Item>()
 
+  // Enter key pressed state
+
+  const [entKey, setEntKey] = useState('')
+
   // LS from usePlanet hook
 
   // const { setPlanetFavorite, imageContentStored } = usePlanet()
@@ -167,6 +171,10 @@ export function SearchImageAPI() {
       setInpReq('✅')
     }
     setInpReq('')
+
+    // enter key is checked
+
+    setInp(e.target.value)
   }
 
   // fetching my APOD search input API
@@ -178,24 +186,17 @@ export function SearchImageAPI() {
 
       const jsonConverted = await getApodCurrImg.json()
       setInputApi(jsonConverted)
-      // console.log(jsonConverted?.collection)
-
-      // console.log(jsonConverted.collection)
 
       const randomNumber = Math.floor(
         Math.random() * jsonConverted?.collection.items.length,
       )
 
-      // console.log(randomNumber)
-
       const apodImgCol =
         jsonConverted?.collection.items[randomNumber].links[0].href
-      // console.log(apodImgCol)
 
       setHrefImg(apodImgCol)
       setDisplayedContent(jsonConverted?.collection.items[randomNumber])
       const dataCol = jsonConverted?.collection.items[randomNumber].data
-      console.log(dataCol)
       for (let i = 0; i < dataCol.length; i++) {
         if (dataCol[i]?.keywords === undefined) {
           break
@@ -210,12 +211,9 @@ export function SearchImageAPI() {
           result = result.replace(regexHref, '')
           result = result.replace(unwantedHref, '') // Remove unwanted href
           dataCol[i].description = result
-          // console.log(result)
         }
       }
       setDataApi(dataCol)
-
-      // return <img src={hrefImg} alt="" />
     } catch (err) {
       const input_mobile = document.querySelector<HTMLInputElement>(
         '.inpMobile',
@@ -228,6 +226,12 @@ export function SearchImageAPI() {
 
       alert('Input value invalid or limited')
     }
+  }
+
+  // if the enter key is pressed call my API
+
+  function handleKeyDown(e: { key: string }) {
+    if (e.key === 'Enter') handleInputChange()
   }
 
   // putting the data in my LS when star is clicked
@@ -248,6 +252,7 @@ export function SearchImageAPI() {
               placeholder="Feeling spacy..."
               value={inp}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             <input
@@ -256,6 +261,7 @@ export function SearchImageAPI() {
               placeholder="Feeling spacy..."
               value={inp}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
             />
           )}
 
@@ -321,6 +327,7 @@ export function SearchImageAPI() {
             value={inp}
             placeholder="Feeling spacy..."
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
         ) : (
           <>
@@ -330,6 +337,7 @@ export function SearchImageAPI() {
               value={inp}
               placeholder="Feeling spacy..."
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
             />
 
             <button

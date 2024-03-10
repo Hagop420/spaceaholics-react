@@ -40,8 +40,6 @@ export function SearchImageAPI() {
 
   // Enter key pressed state
 
-  const [entKey, setEntKey] = useState('')
-
   // LS from usePlanet hook
 
   // const { setPlanetFavorite, imageContentStored } = usePlanet()

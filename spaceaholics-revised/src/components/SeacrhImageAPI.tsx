@@ -171,8 +171,6 @@ export function SearchImageAPI() {
     setInpReq('')
 
     // enter key is checked
-
-    setInp(e.target.value)
   }
 
   // fetching my APOD search input API
@@ -245,7 +243,7 @@ export function SearchImageAPI() {
         <div className="hidden sm:flex lg:flex sm:m-auto md:p-4 sm:justify-center">
           {planetItem.length !== 0 ? (
             <input
-              className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              className="rounded pl-2 sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
               type="text"
               placeholder="Feeling spacy..."
               value={inp}
@@ -254,7 +252,7 @@ export function SearchImageAPI() {
             />
           ) : (
             <input
-              className="rounded sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
+              className="rounded pl-2 sm:w-60 sm:m md:w-80 lg:w-80 xl:w-96 lofiInput"
               type="text"
               placeholder="Feeling spacy..."
               value={inp}
@@ -320,7 +318,7 @@ export function SearchImageAPI() {
       <div className="flex justify-center sm:hidden">
         {planetItem.length !== 0 ? (
           <input
-            className="form-control w-60 rounded inpMobile lofiInput"
+            className="form-control pl-2 w-60 rounded inpMobile lofiInput"
             type="text"
             value={inp}
             placeholder="Feeling spacy..."
@@ -330,7 +328,7 @@ export function SearchImageAPI() {
         ) : (
           <>
             <input
-              className="form-control w-60 rounded inpMobile lofiInput"
+              className="form-control pl-2 w-60 rounded inpMobile lofiInput"
               type="text"
               value={inp}
               placeholder="Feeling spacy..."

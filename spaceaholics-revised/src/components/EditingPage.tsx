@@ -76,6 +76,10 @@ export function EditingPage() {
     clickSoundEffect.play()
   }
 
+  function handleKeyDown(e: { key: string }) {
+    if (e.key === 'Enter') favoritesPlanetGone()
+  }
+
   // months functionallity arr
   const monthNames = [
     'January',
@@ -198,7 +202,12 @@ export function EditingPage() {
           </button>
         </div>
         {isOpen && (
-          <div id="modalContainer" className="modal-container ">
+          <div
+            id="modalContainer"
+            className="modal-container "
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+          >
             <div className="flex-col items-center m-auto justify-center openingModalClr h-screen">
               <div className="bg-white rounded p-10">
                 <div className="flex justify-end hover:opacity-75 hover:text-blue-950">
